@@ -1,0 +1,17 @@
+Scanning for BLE devices...
+Found: OsmoAction5Pro907A @ 04:A8:5A:67:90:7B
+Connected. Fetching services...
+
+Service: 0000fff0-0000-1000-8000-00805f9b34fb
+  └─ Characteristic: 0000fff3-0000-1000-8000-00805f9b34fb [read, write, notify, indicate]
+  └─ Characteristic: 0000fff5-0000-1000-8000-00805f9b34fb [read, write-without-response, notify, indicate]
+  └─ Characteristic: 0000fff4-0000-1000-8000-00805f9b34fb [read, write, notify, indicate]
+
+Service: 00001801-0000-1000-8000-00805f9b34fb
+  └─ Characteristic: 00002a05-0000-1000-8000-00805f9b34fb [indicate]
+
+Service: 00001800-0000-1000-8000-00805f9b34fb
+  └─ Characteristic: 00002a04-0000-1000-8000-00805f9b34fb [read]
+  └─ Characteristic: 00002a01-0000-1000-8000-00805f9b34fb [read]
+  └─ Characteristic: 00002a00-0000-1000-8000-00805f9b34fb [read]
+  └─ Characteristic: 00002aa6-0000-1000-8000-00805f9b34fb [read]
