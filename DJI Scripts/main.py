@@ -2,7 +2,7 @@ import asyncio
 from dji_ble import DJIBLE
 from dji_commands import build_connection_request, build_record_command
 from dji_protocol import build_frame, next_seq
-from dji_structs import build_status_subscription
+from dji_structs import build_status_subscription, build_camera_mode_switch
 
 async def main():
     ble = DJIBLE()
@@ -30,6 +30,39 @@ async def main():
     status_payload = build_status_subscription(push_mode=3, push_freq=20)
     status_frame = build_frame(0x1D, 0x05, 0x00, status_payload, next_seq())
     await ble.write(status_frame)
+
+    await asyncio.sleep(10)
+
+    # Stop recording
+    payload = build_record_command(device_id, start=False)
+    frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+    await asyncio.sleep(10)
+
+    # Switch Camera to Photo Mode
+    payload = build_camera_mode_switch(device_id, 0x05)
+    frame = build_frame(0x1D, 0x04, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+    await asyncio.sleep(5)
+
+    # Take Photo
+    payload = build_record_command(device_id, start=True)
+    frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+    await asyncio.sleep(5)
+
+    # Switch Camera to Slow Motion Mode
+    payload = build_camera_mode_switch(device_id, 0x00)
+    frame = build_frame(0x1D, 0x04, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+    # Start Slow Motion Recording
+    payload = build_record_command(device_id, start=True)
+    frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
+    await ble.write(frame)
 
     await asyncio.sleep(10)
 
