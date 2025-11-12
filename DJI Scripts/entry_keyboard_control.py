@@ -5,12 +5,20 @@ An entry point that allows functions to be controlled by keyboard entry
 
     TODO:
     - [ ] make actions trigger on key press
-        - [X] take_photo
-        - [ ] start_record
-        - [ ] stop record
-        - [ ] sleep switch
-        - [ ] switch_camera_mode
-    - [ ] move camera actions to separate file
+        - [ ] Actions:
+            - [X] take_photo
+            - [X] start_record (same as take_photo)
+            - [X] stop record
+            - [ ] sleep switch
+            - [X] switch_camera_mode
+                - **Do any other modes need to be implemented?**
+                - [X] video mode
+                - [X] photo mode
+        - [ ] Tidy and organize program for later flexibility
+            - [ ] move camera actions to separate file
+            - [ ] misc.
+    - [ ] implement fix for sleep/wake modes
+    - [ ] implement camera status/state
     - [ ] update docs
 """
 
@@ -25,9 +33,33 @@ from dji_protocol import build_frame, next_seq
 from dji_structs import build_status_subscription, build_camera_mode_switch
 
 
+async def start_recording(ble, device_id):
+    payload = build_record_command(device_id, start=True)
+    frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+
+async def stop_recording(ble, device_id):
+    payload = build_record_command(device_id, start=False)
+    frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+
 async def take_photo(ble, device_id):
     payload = build_record_command(device_id, start=True)
     frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+
+async def switch_mode_video(ble, device_id):
+    payload = build_camera_mode_switch(device_id, 0x01)
+    frame = build_frame(0x1D, 0x04, 0x00, payload, next_seq())
+    await ble.write(frame)
+
+
+async def switch_mode_photo(ble, device_id):
+    payload = build_camera_mode_switch(device_id, 0x05)
+    frame = build_frame(0x1D, 0x04, 0x00, payload, next_seq())
     await ble.write(frame)
 
 
@@ -40,13 +72,53 @@ def on_press_wrapper(ble, device_id, asyncio_running_loop):
         async def take_photo_caller():
             await asyncio.sleep(2)
             await take_photo(ble, device_id)
-            print("you pressed 'c'!")
+            print("you took a photo")
+            await asyncio.sleep(2)
+
+        async def start_recording_caller():
+            await asyncio.sleep(2)
+            await start_recording(ble, device_id)
+            print("you started recording")
+            await asyncio.sleep(2)
+
+        async def stop_recording_caller():
+            await asyncio.sleep(2)
+            await stop_recording(ble, device_id)
+            print("you stopped recording")
+            await asyncio.sleep(2)
+
+        async def switch_mode_video_caller():
+            await asyncio.sleep(2)
+            await switch_mode_video(ble, device_id)
+            print("you switched to video mode")
+            await asyncio.sleep(2)
+
+        async def switch_mode_photo_caller():
+            await asyncio.sleep(2)
+            await switch_mode_photo(ble, device_id)
+            print("you switched to photo mode")
             await asyncio.sleep(2)
 
         try:
             if key.char == "p":
                 asyncio.run_coroutine_threadsafe(
                     take_photo_caller(), asyncio_running_loop
+                )
+            elif key.char == "v":
+                asyncio.run_coroutine_threadsafe(
+                    start_recording_caller(), asyncio_running_loop
+                )
+            elif key.char == "s":
+                asyncio.run_coroutine_threadsafe(
+                    stop_recording_caller(), asyncio_running_loop
+                )
+            elif key.char == "1":
+                asyncio.run_coroutine_threadsafe(
+                    switch_mode_video_caller(), asyncio_running_loop
+                )
+            elif key.char == "2":
+                asyncio.run_coroutine_threadsafe(
+                    switch_mode_photo_caller(), asyncio_running_loop
                 )
             elif key.char == "q":
                 print("quitting...")
