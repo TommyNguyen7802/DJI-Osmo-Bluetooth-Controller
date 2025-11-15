@@ -45,12 +45,6 @@ async def stop_recording(ble, device_id):
     await ble.write(frame)
 
 
-async def take_photo(ble, device_id):
-    payload = build_record_command(device_id, start=True)
-    frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
-    await ble.write(frame)
-
-
 async def switch_mode_video(ble, device_id):
     payload = build_camera_mode_switch(device_id, 0x01)
     frame = build_frame(0x1D, 0x04, 0x00, payload, next_seq())
@@ -69,11 +63,7 @@ def on_press_wrapper(ble, device_id, asyncio_running_loop):
     def on_press(key):
         """Handles key press events"""
         try:
-            if key.char == "p":
-                asyncio.run_coroutine_threadsafe(
-                    take_photo(ble, device_id), asyncio_running_loop
-                )
-            elif key.char == "v":
+            if key.char == "c":
                 asyncio.run_coroutine_threadsafe(
                     start_recording(ble, device_id), asyncio_running_loop
                 )
