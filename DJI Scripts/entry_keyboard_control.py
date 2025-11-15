@@ -68,57 +68,26 @@ def on_press_wrapper(ble, device_id, asyncio_running_loop):
 
     def on_press(key):
         """Handles key press events"""
-
-        async def take_photo_caller():
-            await asyncio.sleep(2)
-            await take_photo(ble, device_id)
-            print("you took a photo")
-            await asyncio.sleep(2)
-
-        async def start_recording_caller():
-            await asyncio.sleep(2)
-            await start_recording(ble, device_id)
-            print("you started recording")
-            await asyncio.sleep(2)
-
-        async def stop_recording_caller():
-            await asyncio.sleep(2)
-            await stop_recording(ble, device_id)
-            print("you stopped recording")
-            await asyncio.sleep(2)
-
-        async def switch_mode_video_caller():
-            await asyncio.sleep(2)
-            await switch_mode_video(ble, device_id)
-            print("you switched to video mode")
-            await asyncio.sleep(2)
-
-        async def switch_mode_photo_caller():
-            await asyncio.sleep(2)
-            await switch_mode_photo(ble, device_id)
-            print("you switched to photo mode")
-            await asyncio.sleep(2)
-
         try:
             if key.char == "p":
                 asyncio.run_coroutine_threadsafe(
-                    take_photo_caller(), asyncio_running_loop
+                    take_photo(ble, device_id), asyncio_running_loop
                 )
             elif key.char == "v":
                 asyncio.run_coroutine_threadsafe(
-                    start_recording_caller(), asyncio_running_loop
+                    start_recording(ble, device_id), asyncio_running_loop
                 )
             elif key.char == "s":
                 asyncio.run_coroutine_threadsafe(
-                    stop_recording_caller(), asyncio_running_loop
+                    stop_recording(ble, device_id), asyncio_running_loop
                 )
             elif key.char == "1":
                 asyncio.run_coroutine_threadsafe(
-                    switch_mode_video_caller(), asyncio_running_loop
+                    switch_mode_video(ble, device_id), asyncio_running_loop
                 )
             elif key.char == "2":
                 asyncio.run_coroutine_threadsafe(
-                    switch_mode_photo_caller(), asyncio_running_loop
+                    switch_mode_photo(ble, device_id), asyncio_running_loop
                 )
             elif key.char == "q":
                 print("quitting...")
