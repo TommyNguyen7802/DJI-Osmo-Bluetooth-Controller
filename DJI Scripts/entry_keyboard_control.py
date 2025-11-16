@@ -28,9 +28,8 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from pynput import keyboard
 from dji_ble import DJIBLE
-from dji_commands import build_connection_request, build_record_command
+from dji_commands import build_connection_request
 from dji_protocol import build_frame, next_seq
-from dji_structs import build_status_subscription, build_camera_mode_switch
 from dji_actions import *
 
 
