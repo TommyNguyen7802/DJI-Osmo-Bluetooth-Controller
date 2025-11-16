@@ -89,24 +89,6 @@ async def main():
     ) as listener:
         await asyncio.to_thread(listener.join)
 
-    # await take_photo(ble, device_id)
-
-    # await asyncio.sleep(2)
-
-    # await take_photo(ble, device_id)
-
-    # await asyncio.sleep(2)
-
-    # await asyncio.sleep(2)
-    # print("Press ... or 'q' to quit")
-
-    # Take Photo
-    # payload = build_record_command(device_id, start=True)
-    # frame = build_frame(0x1D, 0x03, 0x00, payload, next_seq())
-    # await ble.write(frame)
-
-    # await asyncio.sleep(2)
-
     await ble.disconnect()
 
 
