@@ -34,7 +34,7 @@ from dji_actions import *
 
 
 def on_press_wrapper(ble, device_id, asyncio_running_loop):
-    """Creates an on_press wrapper for `ble`, `device_id`, asyncio_running_loop params"""
+    """Creates an on_press wrapper for `ble`, `device_id`, `asyncio_running_loop` params"""
 
     def on_press(key):
         """Handles key press events"""
