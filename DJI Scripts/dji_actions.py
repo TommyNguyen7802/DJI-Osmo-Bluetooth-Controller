@@ -1,5 +1,5 @@
 """
-Contains the camera actions used in 'entry_keyboard_control
+Contains the camera actions used in 'entry_keyboard_control'
 """
 
 from dji_commands import build_record_command
