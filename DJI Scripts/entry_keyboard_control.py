@@ -15,7 +15,7 @@ An entry point that allows functions to be controlled by keyboard entry
                 - [X] video mode
                 - [X] photo mode
         - [ ] Tidy and organize program for later flexibility
-            - [ ] move camera actions to separate file
+            - [X] move camera actions to separate file
             - [ ] misc.
     - [ ] implement fix for sleep/wake modes
     - [ ] implement camera status/state
@@ -26,11 +26,42 @@ import asyncio
 import sys, os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from os import system
+from time import sleep
 from pynput import keyboard
 from dji_ble import DJIBLE
 from dji_commands import build_connection_request
 from dji_protocol import build_frame, next_seq
-from dji_actions import *
+from dji_actions import (
+    start_recording,
+    stop_recording,
+    switch_mode_video,
+    switch_mode_photo,
+)
+
+
+def exit_file_transfer_mode():
+    """Exits file transfer mode by disabling USB power"""
+    print("Hello world!")
+    exit_code = system(
+        """
+        echo "Commands to disable USB power go here."
+        """
+    )
+    sleep(4)
+    return exit_code
+
+
+def enter_file_transfer_mode():
+    """Enters file transfer mode by reconnecting USB power"""
+    print("Hello world!")
+    exit_code = system(
+        """
+        echo "Commands to disable USB power go here."
+        """
+    )
+    sleep(4)
+    return exit_code
 
 
 def on_press_wrapper(ble, device_id, asyncio_running_loop):
@@ -55,6 +86,10 @@ def on_press_wrapper(ble, device_id, asyncio_running_loop):
                 asyncio.run_coroutine_threadsafe(
                     switch_mode_photo(ble, device_id), asyncio_running_loop
                 )
+            elif key.char == "p":
+                exit_file_transfer_mode()
+            elif key.char == "o":
+                enter_file_transfer_mode()
             elif key.char == "q":
                 print("quitting...")
                 return False
