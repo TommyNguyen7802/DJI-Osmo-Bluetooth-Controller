@@ -9,11 +9,12 @@ that is equipped with bluetooth LE capabilities (BT 4.0 and newer) and control t
 - Bluez
 - Bluetooth
 - uhubctl
+- paramiko
 
   
 Quick install for Linux
 
-sudo apt install python3 python3-bleak bluetooth bluez uhubctl
+sudo apt install python3 python3-bleak bluetooth bluez uhubctl paramiko
 
 
 ## Getting Started
