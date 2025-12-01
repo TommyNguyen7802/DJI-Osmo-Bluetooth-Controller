@@ -19,6 +19,7 @@ An entry point that allows functions to be controlled by keyboard entry
             - [ ] misc.
     - [ ] implement fix for sleep/wake modes
     - [ ] implement camera status/state
+    - [ ] Make SSH friendly
     - [ ] update docs
 """
 
