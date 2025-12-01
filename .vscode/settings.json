@@ -1,8 +1,12 @@
 {
     "cSpell.words": [
         "binded",
+        "charput",
         "DJIBLE",
         "pynput",
+        "tcgetattr",
+        "TCSADRAIN",
+        "tcsetattr",
         "Unbinded"
     ]
 }
