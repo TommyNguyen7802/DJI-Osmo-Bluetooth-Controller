@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+
 import asyncio
 from uhubctl import disable_hub, enable_hub
+from keyboard_control import keyboard_control
 from transfer_video import transfer_new_videos
 
 async def main():
@@ -8,8 +10,8 @@ async def main():
     disable_hub(2)
     disable_hub(4)
 
-    # Camera logic in between
-
+    # Camera logic
+    asyncio.run(keyboard_control())
 
     # Enable all usb ports on Raspberry Pi 5
     enable_hub(2)
