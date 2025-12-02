@@ -27,29 +27,6 @@ from dji_actions import (
 )
 
 
-# def exit_file_transfer_mode():
-#     """Exits file transfer mode by disabling USB power"""
-#     print("Hello world!")
-#     exit_code = system(
-#         """
-#         echo "Commands to disable USB power go here."
-#         """
-#     )
-#     sleep(4)
-#     return exit_code
-
-
-# def enter_file_transfer_mode():
-#     """Enters file transfer mode by reconnecting USB power"""
-#     print("Hello world!")
-#     exit_code = system(
-#         """
-#         echo "Commands to disable USB power go here."
-#         """
-#     )
-#     sleep(4)
-#     return exit_code
-
 def get_key():
     """Read a single keypress from stdin"""
     fd = stdin.fileno()
@@ -60,6 +37,7 @@ def get_key():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return charput
+
 
 async def main():
     ble = DJIBLE()
