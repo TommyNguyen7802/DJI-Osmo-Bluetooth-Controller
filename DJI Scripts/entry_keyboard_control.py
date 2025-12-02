@@ -19,17 +19,15 @@ An entry point that allows functions to be controlled by keyboard entry
             - [ ] misc.
     - [ ] implement fix for sleep/wake modes
     - [ ] implement camera status/state
-    - [ ] Make SSH friendly
+    - [X] Make SSH friendly
     - [ ] update docs
 """
 
 import asyncio
-import sys, os
+from sys import stdin
+import termios
+from tty import setraw
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from os import system
-from time import sleep
-from pynput import keyboard
 from dji_ble import DJIBLE
 from dji_commands import build_connection_request
 from dji_protocol import build_frame, next_seq
@@ -41,63 +39,16 @@ from dji_actions import (
 )
 
 
-def exit_file_transfer_mode():
-    """Exits file transfer mode by disabling USB power"""
-    print("Hello world!")
-    exit_code = system(
-        """
-        echo "Commands to disable USB power go here."
-        """
-    )
-    sleep(4)
-    return exit_code
-
-
-def enter_file_transfer_mode():
-    """Enters file transfer mode by reconnecting USB power"""
-    print("Hello world!")
-    exit_code = system(
-        """
-        echo "Commands to disable USB power go here."
-        """
-    )
-    sleep(4)
-    return exit_code
-
-
-def on_press_wrapper(ble, device_id, asyncio_running_loop):
-    """Creates an on_press wrapper for `ble`, `device_id`, `asyncio_running_loop` params"""
-
-    def on_press(key):
-        """Handles key press events"""
-        try:
-            if key.char == "c":
-                asyncio.run_coroutine_threadsafe(
-                    start_recording(ble, device_id), asyncio_running_loop
-                )
-            elif key.char == "s":
-                asyncio.run_coroutine_threadsafe(
-                    stop_recording(ble, device_id), asyncio_running_loop
-                )
-            elif key.char == "1":
-                asyncio.run_coroutine_threadsafe(
-                    switch_mode_video(ble, device_id), asyncio_running_loop
-                )
-            elif key.char == "2":
-                asyncio.run_coroutine_threadsafe(
-                    switch_mode_photo(ble, device_id), asyncio_running_loop
-                )
-            elif key.char == "p":
-                exit_file_transfer_mode()
-            elif key.char == "o":
-                enter_file_transfer_mode()
-            elif key.char == "q":
-                print("quitting...")
-                return False
-        except AttributeError:
-            pass
-
-    return on_press
+def get_key():
+    """Read a single keypress from stdin"""
+    fd = stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        setraw(fd)
+        charput = stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return charput
 
 
 async def main():
@@ -117,13 +68,29 @@ async def main():
     frame = build_frame(0x00, 0x19, 0x00, payload, next_seq())
     await ble.write(frame)
 
-    await asyncio.sleep(2)
+    await asyncio.sleep(0.5)
 
-    asyncio_running_loop = asyncio.get_running_loop()
-    with keyboard.Listener(
-        on_press=on_press_wrapper(ble, device_id, asyncio_running_loop)
-    ) as listener:
-        await asyncio.to_thread(listener.join)
+    while True:
+        key = get_key()
+
+        if key == "c":
+            print("start recording/capture")
+            await start_recording(ble, device_id)
+        elif key == "s":
+            print("stop recording")
+            await stop_recording(ble, device_id)
+        elif key == "1":
+            print("switch to video mode")
+            await switch_mode_video(ble, device_id)
+        elif key == "2":
+            print("switch to camera/capture mode")
+            await switch_mode_photo(ble, device_id)
+        elif key == "q":
+            print("Disconnecting!")
+            await asyncio.sleep(0.5)
+            break
+
+    await asyncio.sleep(0.5)
 
     await ble.disconnect()
 
