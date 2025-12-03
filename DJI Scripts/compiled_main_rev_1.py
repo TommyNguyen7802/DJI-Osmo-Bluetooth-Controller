@@ -3,7 +3,14 @@
 """
 This entry point allows toggling between file transfer mode and record/capture mode.
 """
+from sys import stdin
+import termios
+from tty import setraw
+from time import sleep
+
 from uhubctl import disable_hub, enable_hub
+from transfer_video import transfer_new_videos
+
 import asyncio
 from dji_ble import DJIBLE
 from dji_commands import build_connection_request
@@ -16,16 +23,63 @@ from dji_actions import (
 )
 
 
+def get_key():
+    """Read a single keypress from stdin"""
+    fd = stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        setraw(fd)
+        charput = stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return charput
+
+
+async def remote_control_camera(ble, device_id):
+    """Performs camera actions and shows menu options"""
+    while True:
+        print(
+            "Make a selection:\n"
+            "c. start recording/capture\n"
+            "s. stop recording\n"
+            "1. switch to video mode\n"
+            "2. switch to camera/capture mode\n"
+            "3. Return"
+        )
+
+        key = get_key()
+        if key == "c":
+            print("start recording/capture")
+            await start_recording(ble, device_id)
+        elif key == "s":
+            print("stop recording")
+            await stop_recording(ble, device_id)
+        elif key == "1":
+            print("switch to video mode")
+            await switch_mode_video(ble, device_id)
+        elif key == "2":
+            print("switch to camera/capture mode")
+            await switch_mode_photo(ble, device_id)
+        elif key == "3" or key == "q":
+            await asyncio.sleep(0.5)
+            break
+
+
 async def main():
-    # Disable USB Ports
-    # disable_hub(2)
-    # disable_hub(4)
+    disable_hub(2)
+    disable_hub(4)
 
-    # Connect to camera
     ble = DJIBLE()
-    await ble.connect()
+    try:
+        await ble.connect()
+    except Exception as e:
+        if str(e) == "Camera not found":
+            print("The camera was not found.")
+            print("exiting...")
+            return 1
+        else:
+            raise
 
-    # Send connection request
     device_id = 0x12345678
     mac = [0x04, 0xA8, 0x5A, 0x67, 0x90, 0x7B]
     fw_version = 0x01020304
@@ -40,19 +94,44 @@ async def main():
 
     await asyncio.sleep(0.5)
 
-    await asyncio.sleep(2)
+    while True:
+        print(
+            "Make a selection:\n"
+            "1. Record/capture mode\n"
+            "2. File transfer mode\n"
+            "3. Disconnect"
+        )
+
+        key = get_key()
+        if key == "1":
+            await asyncio.sleep(0.5)
+            await remote_control_camera(ble, device_id)
+            await asyncio.sleep(0.5)
+
+        elif key == "2":
+            await asyncio.sleep(0.5)
+            enable_hub(2)
+            enable_hub(4)
+            await asyncio.sleep(2)
+
+            transfer_new_videos()
+
+            await asyncio.sleep(0.5)
+            disable_hub(2)
+            disable_hub(4)
+            await asyncio(2)
+
+        elif key == "3" or key == "q":
+            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.5)
+            break
 
     await ble.disconnect()
-
-    await asyncio.sleep(1)
-
-    # Once connection is established, offer recording mode or file transfer mode
-    #   In recording mode, call `keyboard_control`
-    #   In file transfer mode, enable usb ports and call the file transfer function
-    #       When exiting file transfer mode, re-disable usb ports
-    # On exit, disconnect camera and re-enable usb ports
-    return
+    await asyncio.sleep(0.5)
+    enable_hub(2)
+    enable_hub(4)
+    sleep(1)
 
 
 if __name__ == "__main__":
-        asyncio.run(main())
+    asyncio.run(main())
