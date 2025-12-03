@@ -123,7 +123,7 @@ async def main():
             await asyncio.sleep(0.5)
             disable_hub(2)
             disable_hub(4)
-            await asyncio(2)
+            await asyncio.sleep(2)
 
         elif key == "3" or key == "q":
             await asyncio.sleep(0.5)
