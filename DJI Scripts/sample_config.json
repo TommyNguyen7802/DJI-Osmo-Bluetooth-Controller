@@ -1,4 +1,6 @@
 {
+  "_comment": "use file as template for `config.json`",
+
   "host": "target remote ip goes here",
   "port": 22,
   "user": "target user goes here",
