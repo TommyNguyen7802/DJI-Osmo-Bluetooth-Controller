@@ -3,6 +3,10 @@
 """
 This entry point allows toggling between file transfer mode and record/capture mode.
 """
+"""
+TODO:
+- [ ] Testing w/ file transfer
+"""
 from sys import stdin
 import termios
 from tty import setraw
