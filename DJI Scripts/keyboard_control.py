@@ -52,6 +52,7 @@ def get_key():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return charput
 
+
 async def keyboard_control():
     ble = DJIBLE()
     await ble.connect()
@@ -95,8 +96,10 @@ async def keyboard_control():
 
     await ble.disconnect()
 
+
 def main():
     asyncio.run(keyboard_control())
+
 
 if __name__ == "__main__":
     main()
