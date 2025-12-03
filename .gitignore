@@ -2,3 +2,4 @@
 .env
 env
 /DJI\ Scripts/__pycache__
+/DJI\ Scripts/config.json
