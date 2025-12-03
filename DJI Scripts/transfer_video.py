@@ -8,7 +8,7 @@ def load_log():
     """Create log file if it doesn't exist."""
     if not os.path.exists(LOG_FILE):
         with open(LOG_FILE, "w") as f:
-            f.write("")  # start empty
+            f.write("")
         print(f"Created new log file: {LOG_FILE}")
     """Load list of previously transferred files."""
     if os.path.exists(LOG_FILE):
@@ -30,8 +30,8 @@ def transfer_new_videos():
     port = cfg["port"]
     username = cfg["user"]
     password = cfg["password"]
-    local_dir = cfg["local_dir"]          # directory where camera saves videos
-    remote_dir = cfg["remote_directory"]  # remote directory to upload into
+    local_dir = cfg["local_dir"]
+    remote_dir = cfg["remote_dir"]
 
     # Ensure remote download path exists locally
     os.makedirs(local_dir, exist_ok=True)
@@ -42,7 +42,7 @@ def transfer_new_videos():
     # Connect to server
     with paramiko.SSHClient() as client:
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname, port=port, username=username, password=password)
+        client.connect(hostname, port, username, password)
         sftp = client.open_sftp()
 
         # Iterate over files in local_dir
@@ -54,14 +54,11 @@ def transfer_new_videos():
             if filename in transferred or not os.path.isfile(local_path):
                 continue
 
-            # Upload file
             sftp.put(local_path, remote_path)
             print(f"Uploaded: {local_path} → {remote_path}")
 
-            # Update log
             update_log(filename)
 
-        # List files on server
         print("\nFiles on server:")
         files = sftp.listdir(remote_dir)
         for f in files:
