@@ -56,7 +56,8 @@ def handle_new_camera_status_push(payload):
     print(f"  Mode Param: {mode_param}")
 
 def handle_connection_response(payload):
-    print("Connection response received")
+  # print("")
+    return
     # TODO: unpack ret_code and device_id
 
 def handle_record_control_response(payload):

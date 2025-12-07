@@ -32,10 +32,7 @@ def transfer_new_videos():
     password = cfg["password"]
     local_dir = cfg["local_dir"]
     remote_dir = cfg["remote_dir"]
-
-    # Ensure remote download path exists locally
-    os.makedirs(local_dir, exist_ok=True)
-
+    print(f"{local_dir}")
     # Load log of already transferred files
     transferred = load_log()
 

@@ -27,7 +27,7 @@ def handle_notification(data: bytes):
     if data[0] != 0xAA:
         print("Non-protocol notification")
         return
-    print(f"Notification: {data.hex()}")
+    # print(f"Notification: {data.hex()}")
     # TODO: parse frame, extract cmd_set/cmd_id, dispatch to handler
 
 def parse_frame(frame: bytes):
@@ -60,7 +60,7 @@ def parse_frame(frame: bytes):
     cmd_id = frame[13]
     payload = frame[14:-4]
 
-    print(f"📦 Frame parsed: cmd_set=0x{cmd_set:02X}, cmd_id=0x{cmd_id:02X}, payload={payload.hex()}")
+    # print(f"📦 Frame parsed: cmd_set=0x{cmd_set:02X}, cmd_id=0x{cmd_id:02X}, payload={payload.hex()}")
 
     # Dispatch to handler
     dispatch_handler(cmd_set, cmd_id, payload)
