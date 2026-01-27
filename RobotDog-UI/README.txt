@@ -1,4 +1,4 @@
-OmniControl UI
+RoboControl UI
 ==========================================
 
 A responsive, high-performance remote control interface featuring a dynamic grid layout, livestream video, and real-time telemetry.
