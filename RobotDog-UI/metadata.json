@@ -1,0 +1,5 @@
+{
+  "name": "OmniControl UI",
+  "description": "A responsive, high-performance remote control interface featuring a dynamic grid layout with livestream video, real-time status telemetry, and a mapped directional pad controller.",
+  "requestFramePermissions": []
+}
