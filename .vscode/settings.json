@@ -4,6 +4,7 @@
         "charput",
         "DJIBLE",
         "pynput",
+        "raspberrypi",
         "tcgetattr",
         "TCSADRAIN",
         "tcsetattr",
