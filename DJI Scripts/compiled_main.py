@@ -121,15 +121,17 @@ async def main():
             transfer_delay_time = 4
             transfer_buffer = 1
             transfer_new_videos()
-            # for i in range(transfer_attempts):
-            #     try:
-            #         print("Attempting file transfer...")
-            #         await asyncio.sleep(transfer_delay_time)
-            #         transfer_new_videos()
-            #         await asyncio.sleep(transfer_buffer)
-            #         break
-            #     except :
-
+            for i in range(transfer_attempts):
+                try:
+                    print("Attempting file transfer...")
+                    await asyncio.sleep(transfer_delay_time)
+                    transfer_new_videos()
+                    await asyncio.sleep(transfer_buffer)
+                    break
+                except FileNotFoundError as e:
+                    if i == transfer_attempts-1:
+                        print("Path does not exist. Returning to main menu...")
+                    pass
 
             await asyncio.sleep(0.5)
             disable_hub(2)
