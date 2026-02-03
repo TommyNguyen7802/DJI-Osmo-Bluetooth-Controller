@@ -8,4 +8,5 @@
 - [ ] Add try-except block to each of the three options in compiled_main.py
 - [ ] Clean code in `uhubctl.py`
 - [ ] find solution for `config.json` commits in git
+- [ ] hide Invalid frame print statements
 - [ ] Remove unneeded comments
