@@ -132,7 +132,7 @@ async def main():
             break
 
     await ble.disconnect()
-    await asyncio.sleep(0.5)
+    await asyncio.sleep(4)
     enable_hub(2)
     enable_hub(4)
     sleep(1)
