@@ -116,6 +116,7 @@ async def main():
             await asyncio.sleep(0.5)
             enable_hub(2)
             enable_hub(4)
+            # TODO set try except
             await asyncio.sleep(10) # default 8
 
             # TODO: Add try except
@@ -127,8 +128,7 @@ async def main():
             await asyncio.sleep(2)
 
         elif key == "3" or key == "q":
-            await asyncio.sleep(0.5)
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(1)
             break
 
     await ble.disconnect()
