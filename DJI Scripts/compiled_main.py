@@ -132,8 +132,12 @@ async def main():
             break
 
     await asyncio.sleep(1)
-    await ble.disconnect()
-    await asyncio.sleep(4)
+    try:
+        await ble.disconnect()
+    except EOFError:
+        # already disconnected
+        pass
+    await asyncio.sleep(1)
     enable_hub(2)
     enable_hub(4)
     sleep(1)
