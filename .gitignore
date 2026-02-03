@@ -2,5 +2,4 @@
 .env
 env
 /DJI\ Scripts/__pycache__
-/DJI\ Scripts/config.json
 /DJI\ Scripts/transfer_log.txt
