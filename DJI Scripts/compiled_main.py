@@ -128,9 +128,10 @@ async def main():
             await asyncio.sleep(2)
 
         elif key == "3" or key == "q":
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.5)
             break
 
+    await asyncio.sleep(1)
     await ble.disconnect()
     await asyncio.sleep(4)
     enable_hub(2)
