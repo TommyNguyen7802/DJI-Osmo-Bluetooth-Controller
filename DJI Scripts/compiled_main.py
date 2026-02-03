@@ -116,7 +116,7 @@ async def main():
             await asyncio.sleep(0.5)
             enable_hub(2)
             enable_hub(4)
-            await asyncio.sleep(10)
+            await asyncio.sleep(10) # default 8
 
             # TODO: Add try except
             transfer_new_videos()
