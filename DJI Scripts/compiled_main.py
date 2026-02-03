@@ -142,6 +142,7 @@ async def main():
             await asyncio.sleep(2)
 
         elif key == "3" or key == "q":
+            print("disconnecting...")
             await asyncio.sleep(0.25)
             break
 
