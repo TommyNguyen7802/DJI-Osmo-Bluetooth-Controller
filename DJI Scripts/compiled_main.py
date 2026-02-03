@@ -128,7 +128,7 @@ async def main():
                     await asyncio.sleep(transfer_buffer)
                     break
                 except FileNotFoundError as e:
-                    if i == transfer_attempts-1:
+                    if i == transfer_attempts:
                         print("Path does not exist. Returning to main menu...")
                     pass
 
