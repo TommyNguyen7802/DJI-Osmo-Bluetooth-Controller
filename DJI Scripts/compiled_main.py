@@ -122,7 +122,7 @@ async def main():
             transfer_buffer = 1
             for i in range(transfer_attempts):
                 try:
-                    print("Attempting file transfer...")
+                    print("\nAttempting file transfer...")
                     await asyncio.sleep(transfer_delay_time)
                     transfer_new_videos()
                     await asyncio.sleep(transfer_buffer)
