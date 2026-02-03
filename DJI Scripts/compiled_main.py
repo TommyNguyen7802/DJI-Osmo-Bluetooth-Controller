@@ -116,11 +116,20 @@ async def main():
             await asyncio.sleep(0.5)
             enable_hub(2)
             enable_hub(4)
-            # TODO set try except
-            await asyncio.sleep(10) # default 8
 
-            # TODO: Add try except
+            transfer_attempts = 3
+            transfer_delay_time = 4
+            transfer_buffer = 1
             transfer_new_videos()
+            # for i in range(transfer_attempts):
+            #     try:
+            #         print("Attempting file transfer...")
+            #         await asyncio.sleep(transfer_delay_time)
+            #         transfer_new_videos()
+            #         await asyncio.sleep(transfer_buffer)
+            #         break
+            #     except :
+
 
             await asyncio.sleep(0.5)
             disable_hub(2)
