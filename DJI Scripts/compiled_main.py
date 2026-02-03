@@ -76,6 +76,10 @@ async def main():
     ble = DJIBLE()
     try:
         await ble.connect()
+    except TimeoutError as e:
+        print("A connection attempt was made, but timed out.")
+        print("exiting...")
+        return 1
     except Exception as e:
         if str(e) == "Camera not found":
             print("The camera was not found.")
