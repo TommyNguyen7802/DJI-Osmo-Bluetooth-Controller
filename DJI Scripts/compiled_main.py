@@ -120,7 +120,6 @@ async def main():
             transfer_attempts = 3
             transfer_delay_time = 4
             transfer_buffer = 1
-            transfer_new_videos()
             for i in range(transfer_attempts):
                 try:
                     print("Attempting file transfer...")
