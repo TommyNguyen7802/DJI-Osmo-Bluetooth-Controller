@@ -5,7 +5,7 @@ def disable_hub(location):
     cmd = ["uhubctl", "-l", str(location), "-a", "0"]
     # print("Running:", " ".join(cmd))
     try:
-        output = subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
+        output = subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(output)
     except subprocess.CalledProcessError as e:
         print(f"Error disabling hub {location}:", e)
@@ -15,7 +15,7 @@ def enable_hub(location):
     cmd = ["uhubctl", "-l", str(location), "-a", "1"]
     # print("Running:", " ".join(cmd))
     try:
-        output = subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
+        output = subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         # print(output)
     except subprocess.CalledProcessError as e:
         print(f"Error enabling hub {location}:", e)
