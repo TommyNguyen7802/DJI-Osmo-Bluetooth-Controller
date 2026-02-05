@@ -150,6 +150,10 @@ async def main():
                     if i == transfer_attempts:
                         print("Path does not exist. Returning to main menu...")
                     pass
+                except PermissionError as e:
+                    print(f"Permission error: {e}. Returning to main menu...")
+                except Exception as e:
+                    print(f"Error: {e}. Returning to main menu...")
 
             await asyncio.sleep(0.5)
             disable_hub(2)
