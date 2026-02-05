@@ -149,12 +149,12 @@ async def main():
                 except FileNotFoundError as e:
                     if i == transfer_attempts:
                         print("Path does not exist: {e}")
-                        print(f"attempt {i+1} of {transfer_attempts}...")
+                    print(f"attempt {i+1} of {transfer_attempts}...")
                     pass
                 except PermissionError as e:
                     if i == transfer_attempts:
                         print(f"Permission error: {e}")
-                        print(f"attempt {i+1} of {transfer_attempts}...")
+                    print(f"attempt {i+1} of {transfer_attempts}...")
                     pass
                 except Exception as e:
                     print(f"Error: {e}.")
