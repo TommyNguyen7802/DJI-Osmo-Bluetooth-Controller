@@ -74,19 +74,26 @@ async def main():
     disable_hub(4)
 
     ble = DJIBLE()
-    try:
-        await ble.connect()
-    except TimeoutError as e:
-        print("A connection attempt was made, but timed out.")
-        print("exiting...")
-        return 1
-    except Exception as e:
-        if str(e) == "Camera not found":
-            print("The camera was not found.")
-            print("exiting...")
+    connect_attempts = 3
+    for i in range(connect_attempts):
+        try:
+            await ble.connect()
+            break
+        except TimeoutError as e:
+            print("A connection attempt was made, but timed out.")
+            await asyncio.sleep(0.5)
+            print(f"attempt {i} of {connect_attempts}")
+            await asyncio.sleep(1)
             return 1
-        else:
-            raise
+        except Exception as e:
+            if str(e) == "Camera not found":
+                print("The camera was not found.")
+                await asyncio.sleep(0.5)
+                print(f"attempt {i} of {connect_attempts}")
+                await asyncio.sleep(1)
+                return 1
+            else:
+                raise
 
     device_id = 0x12345678
     mac = [0x04, 0xA8, 0x5A, 0x67, 0x90, 0x7B]
@@ -131,7 +138,7 @@ async def main():
                     transfer_new_videos()
                     await asyncio.sleep(transfer_buffer)
                     break
-                except FileNotFoundError as e:
+                except FileNotFoundError:
                     if i == transfer_attempts:
                         print("Path does not exist. Returning to main menu...")
                     pass
