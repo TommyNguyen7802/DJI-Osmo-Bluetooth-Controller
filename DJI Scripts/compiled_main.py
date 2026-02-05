@@ -43,7 +43,7 @@ async def remote_control_camera(ble, device_id):
     """Performs camera actions and shows menu options"""
     while True:
         print(
-            "Make a selection:\n"
+            "\nMake a selection:\n"
             "c. start recording/capture\n"
             "s. stop recording\n"
             "1. switch to video mode\n"
