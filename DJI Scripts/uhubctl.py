@@ -5,7 +5,7 @@ def disable_hub(location):
     cmd = ["uhubctl", "-l", str(location), "-a", "0"]
     # print("Running:", " ".join(cmd))
     try:
-        output = subprocess.check_output(cmd, text=True)
+        output = subprocess.check_output(cmd, text=True, stderr=subprocess.DEVNULL)
         print(output)
     except subprocess.CalledProcessError as e:
         print(f"Error disabling hub {location}:", e)
