@@ -84,7 +84,7 @@ async def main():
             await asyncio.sleep(0.5)
             print(f"attempt {i+1} of {connect_attempts}")
             await asyncio.sleep(1)
-            if (i >= 3):
+            if (i >= connect_attempts-1):
                 print("exiting...")
                 return 1
         except Exception as e:
@@ -93,7 +93,7 @@ async def main():
                 await asyncio.sleep(0.5)
                 print(f"attempt {i+1} of {connect_attempts}")
                 await asyncio.sleep(1)
-                if (i >= 3):
+                if (i >= connect_attempts-1):
                     print("exiting...")
                     return 1
             else:
