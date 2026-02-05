@@ -6,9 +6,9 @@ interface VideoPanelProps {
 }
 
 export const VideoPanel: React.FC<VideoPanelProps> = ({ onLog }) => {
-  const [videoSrc, setVideoSrc] = useState<string>('');
+  const [videoSrc, setVideoSrc] = useState<string>('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
   const [inputSrc, setInputSrc] = useState<string>('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -53,6 +53,15 @@ export const VideoPanel: React.FC<VideoPanelProps> = ({ onLog }) => {
     };
   }, [onLog]);
 
+  useEffect(() => {
+  if (videoRef.current && videoSrc) {
+    videoRef.current.play().catch(e => {
+      onLog(`Autoplay failed: ${e.message}`, 'warning');
+    });
+  }
+}, [videoSrc, onLog]);
+
+
   return (
     <div 
       className="relative w-full h-full bg-black flex items-center justify-center overflow-hidden group border-b md:border-b-0 md:border-r border-gray-700"
@@ -65,6 +74,8 @@ export const VideoPanel: React.FC<VideoPanelProps> = ({ onLog }) => {
           src={videoSrc} 
           className="w-full h-full object-contain"
           playsInline
+          Autoplay
+          muted
           loop
           crossOrigin="anonymous"
         />
