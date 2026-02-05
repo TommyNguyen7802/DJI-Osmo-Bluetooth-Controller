@@ -91,7 +91,7 @@ async def main():
             if str(e) == "Camera not found":
                 print("The camera was not found.")
                 await asyncio.sleep(0.5)
-                print(f"attempt {i} of {connect_attempts}")
+                print(f"attempt {i+1} of {connect_attempts}")
                 await asyncio.sleep(1)
                 if (i >= 3):
                     print("exiting...")
