@@ -82,7 +82,7 @@ async def main():
         except TimeoutError as e:
             print("A connection attempt was made, but timed out.")
             await asyncio.sleep(0.5)
-            print(f"attempt {i+1} of {connect_attempts}")
+            print(f"Attempt {i+1} of {connect_attempts}")
             await asyncio.sleep(1)
             if (i >= connect_attempts-1):
                 print("exiting...")
@@ -91,7 +91,7 @@ async def main():
             if str(e) == "Camera not found":
                 print("The camera was not found.")
                 await asyncio.sleep(0.5)
-                print(f"attempt {i+1} of {connect_attempts}")
+                print(f"Attempt {i+1} of {connect_attempts}")
                 await asyncio.sleep(1)
                 if (i >= connect_attempts-1):
                     print("exiting...")
@@ -124,7 +124,12 @@ async def main():
         key = get_key()
         if key == "1":
             await asyncio.sleep(0.5)
-            await remote_control_camera(ble, device_id)
+            try:
+                await remote_control_camera(ble, device_id)
+                raise
+            except Exception:
+                await asyncio.sleep(0.5)
+                print("remote camera control failed.")
             await asyncio.sleep(0.5)
 
         elif key == "2":
