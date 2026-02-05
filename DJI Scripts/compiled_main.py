@@ -127,9 +127,9 @@ async def main():
             try:
                 raise
                 await remote_control_camera(ble, device_id)
-            except Exception:
+            except Exception as e:
                 await asyncio.sleep(0.5)
-                print("remote camera control failed.")
+                print(f"Remote camera control failed: {e}")
             await asyncio.sleep(0.5)
 
         elif key == "2":
