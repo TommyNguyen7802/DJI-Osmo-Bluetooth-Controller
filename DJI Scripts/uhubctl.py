@@ -6,7 +6,6 @@ def disable_hub(location):
     # print("Running:", " ".join(cmd))
     try:
         output = subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print(output)
     except subprocess.CalledProcessError as e:
         print(f"Error disabling hub {location}:", e)
 
