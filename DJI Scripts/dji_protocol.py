@@ -32,7 +32,8 @@ def handle_notification(data: bytes):
 
 def parse_frame(frame: bytes):
     if len(frame) < 16 or frame[0] != 0xAA:
-        print("❌ Invalid frame")
+        # Hide when invalid frames are printed
+        # print("❌ Invalid frame")
         return
 
     # Parse header
