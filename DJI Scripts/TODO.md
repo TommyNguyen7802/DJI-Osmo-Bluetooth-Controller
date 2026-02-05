@@ -6,6 +6,6 @@
 - [X] Fix crash-on-exit bluetooth disconnection
 - [X] Add try-except block to each of the three options in compiled_main.py
 - [X] Clean code in `uhubctl.py`
-- [ ] find solution for `config.json` commits in git
+- [X] find solution for `config.json` commits in git
 - [ ] hide Invalid frame print statements
 - [ ] Remove unneeded comments
