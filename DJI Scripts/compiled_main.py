@@ -136,8 +136,8 @@ async def main():
             enable_hub(2)
             enable_hub(4)
 
-            transfer_attempts = 3
-            transfer_delay_time = 4
+            transfer_attempts = 4
+            transfer_delay_time = 6
             transfer_buffer = 1
             for i in range(transfer_attempts):
                 try:
