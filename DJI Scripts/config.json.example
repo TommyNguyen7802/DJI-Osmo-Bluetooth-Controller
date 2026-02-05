@@ -1,0 +1,10 @@
+{
+  "_comment": "Config info for file server",
+
+  "host": "127.0.0.1",
+  "port": 22,
+  "user": "username",
+  "password": "password",
+  "local_dir": "/media/user/SD_Card/DCIM/DJI_001/",
+  "remote_dir": "/home/user/Desktop/remote-server/"
+}
