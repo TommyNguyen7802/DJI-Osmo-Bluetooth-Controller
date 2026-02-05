@@ -125,7 +125,6 @@ async def main():
         if key == "1":
             await asyncio.sleep(0.5)
             try:
-                raise
                 await remote_control_camera(ble, device_id)
             except Exception as e:
                 await asyncio.sleep(0.5)
