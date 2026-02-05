@@ -115,7 +115,7 @@ async def main():
 
     while True:
         print(
-            "Make a selection:\n"
+            "\nMake a selection:\n"
             "1. Record/capture mode\n"
             "2. File transfer mode\n"
             "3. Disconnect"
