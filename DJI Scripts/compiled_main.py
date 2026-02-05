@@ -146,14 +146,19 @@ async def main():
                     transfer_new_videos()
                     await asyncio.sleep(transfer_buffer)
                     break
-                except FileNotFoundError:
+                except FileNotFoundError as e:
                     if i == transfer_attempts:
-                        print("Path does not exist. Returning to main menu...")
+                        print("Path does not exist: {e}")
+                        print(f"attempt {i+1} of {transfer_attempts}...")
                     pass
                 except PermissionError as e:
-                    print(f"Permission error: {e}. Returning to main menu...")
+                    if i == transfer_attempts:
+                        print(f"Permission error: {e}")
+                        print(f"attempt {i+1} of {transfer_attempts}...")
+                    pass
                 except Exception as e:
-                    print(f"Error: {e}. Returning to main menu...")
+                    print(f"Error: {e}.")
+                    print(f"attempt {i+1} of {transfer_attempts}...")
 
             await asyncio.sleep(0.5)
             disable_hub(2)
