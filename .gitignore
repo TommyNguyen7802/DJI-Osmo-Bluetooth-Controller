@@ -1,8 +1,26 @@
 .history
 .env
 env
+
+sample-yolo-scripts/yolo_env
+sample-yolo-scripts/.yolo_env
+sample-yolo-scripts/env
+sample-yolo-scripts/.env
+sample-yolo-scripts/venv
+sample-yolo-scripts/.env
+sample-yolo-scripts/runs
+sample-yolo-scripts/yolo26n_openvino_model
+sample-yolo-scripts/yolo26s_openvino_model
+sample-yolo-scripts/yolo26m_openvino_model
+sample-yolo-scripts/yolo26l_openvino_model
+sample-yolo-scripts/yolo26n
+sample-yolo-scripts/yolo26s
+sample-yolo-scripts/yolo26m
+sample-yolo-scripts/yolo26l
+
 /DJI\ Scripts/__pycache__
 /DJI\ Scripts/config.json
 /DJI\ Scripts/transfer_log.txt
+
 RobotDog-UI/node_modules
 RobotDog-UI/package-lock.json
