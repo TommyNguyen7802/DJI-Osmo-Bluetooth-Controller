@@ -3,12 +3,14 @@
         "binded",
         "charput",
         "DJIBLE",
+        "pycache",
         "pynput",
         "raspberrypi",
         "tcgetattr",
         "TCSADRAIN",
         "tcsetattr",
         "uhubctl",
-        "Unbinded"
+        "Unbinded",
+        "venv"
     ]
 }

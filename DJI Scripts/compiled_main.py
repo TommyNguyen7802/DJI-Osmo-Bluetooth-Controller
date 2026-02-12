@@ -43,7 +43,7 @@ async def remote_control_camera(ble, device_id):
     """Performs camera actions and shows menu options"""
     while True:
         print(
-            "Make a selection:\n"
+            "\nMake a selection:\n"
             "c. start recording/capture\n"
             "s. stop recording\n"
             "1. switch to video mode\n"
@@ -82,7 +82,7 @@ async def main():
         except TimeoutError as e:
             print("A connection attempt was made, but timed out.")
             await asyncio.sleep(0.5)
-            print(f"Attempt {i+1} of {connect_attempts}")
+            print(f"attempt {i+1} of {connect_attempts}...")
             await asyncio.sleep(1)
             if (i >= connect_attempts-1):
                 print("exiting...")
@@ -91,7 +91,7 @@ async def main():
             if str(e) == "Camera not found":
                 print("The camera was not found.")
                 await asyncio.sleep(0.5)
-                print(f"Attempt {i+1} of {connect_attempts}")
+                print(f"attempt {i+1} of {connect_attempts}...")
                 await asyncio.sleep(1)
                 if (i >= connect_attempts-1):
                     print("exiting...")
@@ -115,7 +115,7 @@ async def main():
 
     while True:
         print(
-            "Make a selection:\n"
+            "\nMake a selection:\n"
             "1. Record/capture mode\n"
             "2. File transfer mode\n"
             "3. Disconnect"
@@ -136,8 +136,8 @@ async def main():
             enable_hub(2)
             enable_hub(4)
 
-            transfer_attempts = 3
-            transfer_delay_time = 4
+            transfer_attempts = 4
+            transfer_delay_time = 6
             transfer_buffer = 1
             for i in range(transfer_attempts):
                 try:
@@ -146,10 +146,19 @@ async def main():
                     transfer_new_videos()
                     await asyncio.sleep(transfer_buffer)
                     break
-                except FileNotFoundError:
+                except FileNotFoundError as e:
                     if i == transfer_attempts:
-                        print("Path does not exist. Returning to main menu...")
+                        print("Path does not exist: {e}")
+                    print(f"attempt {i+1} of {transfer_attempts}...")
                     pass
+                except PermissionError as e:
+                    if i == transfer_attempts:
+                        print(f"Permission error: {e}")
+                    print(f"attempt {i+1} of {transfer_attempts}...")
+                    pass
+                except Exception as e:
+                    print(f"Error: {e}.")
+                    print(f"attempt {i+1} of {transfer_attempts}...")
 
             await asyncio.sleep(0.5)
             disable_hub(2)

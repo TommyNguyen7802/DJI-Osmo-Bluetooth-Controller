@@ -25,14 +25,16 @@ def build_frame(cmd_set, cmd_id, cmd_type, payload: bytes, seq: int):
 
 def handle_notification(data: bytes):
     if data[0] != 0xAA:
-        print("Non-protocol notification")
+        # Hide non-protocol notification statements
+        # print("Non-protocol notification")
         return
     # print(f"Notification: {data.hex()}")
     # TODO: parse frame, extract cmd_set/cmd_id, dispatch to handler
 
 def parse_frame(frame: bytes):
     if len(frame) < 16 or frame[0] != 0xAA:
-        print("❌ Invalid frame")
+        # Hide invalid frame statements
+        # print("❌ Invalid frame")
         return
 
     # Parse header

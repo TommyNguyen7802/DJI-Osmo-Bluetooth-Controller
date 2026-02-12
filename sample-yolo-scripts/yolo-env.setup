@@ -1,0 +1,4 @@
+cd sample-yolo-scripts
+python3 -m venv yolo_env
+source yolo_env/bin/activate
+pip install ultralytics
