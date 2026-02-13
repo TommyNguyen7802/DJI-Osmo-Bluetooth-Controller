@@ -6,8 +6,8 @@ interface VideoPanelProps {
 }
 
 export const VideoPanel: React.FC<VideoPanelProps> = ({ onLog }) => {
-  const [videoSrc, setVideoSrc] = useState<string>('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
-  const [inputSrc, setInputSrc] = useState<string>('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+  const [videoSrc, setVideoSrc] = useState<string>('webrtc');
+  const [inputSrc, setInputSrc] = useState<string>('https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8?');
   const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -30,6 +30,39 @@ export const VideoPanel: React.FC<VideoPanelProps> = ({ onLog }) => {
       }
     }
   };
+
+  useEffect(() => {
+  if (videoSrc === "webrtc") return;
+  if (!videoRef.current) return;
+
+  const pc = new RTCPeerConnection();
+
+  pc.ontrack = (event) => {
+    videoRef.current.srcObject = event.streams[0];
+    videoRef.current.play().catch(() => {});
+
+    event.track.onmute = () => console.log("Track muted");
+    event.track.onunmute = () => console.log("Track unmuted");
+
+  };
+
+  async function start() {
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+
+    const res = await fetch("http://localhost:8080/offer", {
+      method: "POST",
+      body: JSON.stringify(offer),
+      headers: { "Content-Type": "application/json" }
+    });
+
+    const answer = await res.json();
+    await pc.setRemoteDescription(answer);
+  }
+
+  start();
+}, [videoSrc]);
+
 
   useEffect(() => {
     const video = videoRef.current;
@@ -71,7 +104,7 @@ export const VideoPanel: React.FC<VideoPanelProps> = ({ onLog }) => {
       {videoSrc ? (
         <video 
           ref={videoRef}
-          src={videoSrc} 
+          src={videoSrc === "webrtc" ? undefined : videoSrc} 
           className="w-full h-full object-contain"
           playsInline
           Autoplay
