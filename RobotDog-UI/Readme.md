@@ -1,4 +1,4 @@
-RoboControl UI
+RoboControl UI (WIP: Updated February 17, 2026)
 ==========================================
 
 A responsive, high-performance remote control interface featuring a dynamic grid layout, livestream video, and real-time telemetry.
@@ -6,7 +6,7 @@ A responsive, high-performance remote control interface featuring a dynamic grid
 PREREQUISITES
 ------------------------------------------
 1. Node.js (v18 or higher) - For building the frontend.
-2. Python 3.x - For running the server script (optional).
+2. Python 3.x - For running the server script.
 
 QUICK START (DEVELOPMENT)
 ------------------------------------------
@@ -17,7 +17,7 @@ QUICK START (DEVELOPMENT)
 3. Start the development server:
    npm run dev
 
-   This will launch the UI in your default browser at http://localhost:5173.
+   This will launch the UI in your default browser at http://localhost:3000.
    The UI automatically adjusts to the device's resolution.
 
 BUILDING FOR PRODUCTION
@@ -27,25 +27,19 @@ To create a production-ready build:
 
 This creates a 'dist' folder containing the compiled HTML, CSS, and JavaScript.
 
-RUNNING WITH PYTHON
-------------------------------------------
-Per your request for Python code integration:
-
-1. First, build the project:
-   npm run build
-
-2. Run the provided Python server script:
-   python server.py
-
-3. Open http://localhost:8000 in your browser.
-
 PROJECT STRUCTURE
 ------------------------------------------
-- /src             : React source code
-- /components      : UI components (Video, DPad, Logs)
-- server.py        : Python host script
-- vite.config.ts   : Build configuration
-- package.json     : Dependency list
+- /components             : UI components (Video, DPad, Logs)
+- /aioice                 : Driver library
+- /unitree_webrtc_connect : Sample Dog Examples
+- test_webrtc_stream.py   : Python test stream
+- vite.config.ts          : Build configuration
+- package.json            : Dependency list
+
+PYTHON Environment
+------------------------------------------
+PYTHON Environment has a few dependencies in order to run and communicate with the robotdog and test scripts.
+(TODO) -add dependies and documentation to create virtual environment
 
 NOTES
 ------------------------------------------
