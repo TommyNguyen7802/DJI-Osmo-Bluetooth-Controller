@@ -3,6 +3,7 @@
 env
 
 runs
+yolo_env
 sample-yolo-scripts/city-india.mp4
 sample-yolo-scripts/yolo_env
 sample-yolo-scripts/.yolo_env
@@ -11,10 +12,12 @@ sample-yolo-scripts/.env
 sample-yolo-scripts/venv
 sample-yolo-scripts/.env
 sample-yolo-scripts/runs
+sample-yolo-scripts/bus.jpg
 sample-yolo-scripts/yolo26n_openvino_model
 sample-yolo-scripts/yolo26s_openvino_model
 sample-yolo-scripts/yolo26m_openvino_model
 sample-yolo-scripts/yolo26l_openvino_model
+yolo26l.onnx
 sample-yolo-scripts/yolo26n.pt
 sample-yolo-scripts/yolo26s.pt
 sample-yolo-scripts/yolo26m.pt
