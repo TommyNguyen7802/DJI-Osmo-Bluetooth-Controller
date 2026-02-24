@@ -2,6 +2,8 @@
 .env
 env
 
+runs
+sample-yolo-scripts/city-india.mp4
 sample-yolo-scripts/yolo_env
 sample-yolo-scripts/.yolo_env
 sample-yolo-scripts/env
