@@ -15,7 +15,12 @@ from av import VideoFrame
 
 from unitree_webrtc_connect.webrtc_driver import UnitreeWebRTCConnection, WebRTCConnectionMethod
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.FATAL)
+
+height, width = 720, 1280  # Adjust the size as needed
+img = np.zeros((height, width, 3), dtype=np.uint8)
+cv2.imshow('Video', img)
+cv2.waitKey(1)  # Ensure the window is created
 
 # Shared frame queue
 frame_queue = Queue()
@@ -50,20 +55,49 @@ def start_unitree_receiver():
             print("recv_camera_stream: got frame", img.shape)
             frame_queue.put(img)
 
-    async def setup():
-        await conn.connect()
-        conn.video.switchVideoChannel(True)
-        print("setup: connected, adding video callback")
-        conn.video.add_track_callback(recv_camera_stream)
-
-    loop = asyncio.new_event_loop()
-
-    def run():
+    def run_asyncio_loop(loop):
         asyncio.set_event_loop(loop)
+        async def setup():
+            try:
+                # Connect to the device
+                await conn.connect()
+
+                # Switch video channel on and start receiving video frames
+                conn.video.switchVideoChannel(True)
+
+                # Add callback to handle received video frames
+                conn.video.add_track_callback(recv_camera_stream)
+            except Exception as e:
+                logging.error(f"Error in WebRTC connection: {e}")
+
+        # Run the setup coroutine and then start the event loop
         loop.run_until_complete(setup())
         loop.run_forever()
 
-    threading.Thread(target=run, daemon=True).start()
+    # Create a new event loop for the asyncio code
+    loop = asyncio.new_event_loop()
+
+    # Start the asyncio event loop in a separate thread
+    asyncio_thread = threading.Thread(target=run_asyncio_loop, args=(loop,))
+    asyncio_thread.start()
+
+    try:
+        while True:
+            if not frame_queue.empty():
+                img = frame_queue.get()
+                print(f"Shape: {img.shape}, Dimensions: {img.ndim}, Type: {img.dtype}, Size: {img.size}")
+                # Display the frame
+                cv2.imshow('Video', img)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            else:
+                # Sleep briefly to prevent high CPU usage
+                time.sleep(0.01)
+    finally:
+        cv2.destroyAllWindows()
+        # Stop the asyncio event loop
+        loop.call_soon_threadsafe(loop.stop)
+        asyncio_thread.join()
 
 # -------------------------------
 # OpenCV display thread
@@ -143,6 +177,7 @@ cors.add(route)
 # Start everything
 # -------------------------------
 if __name__ == "__main__":
-    start_unitree_receiver()
-    threading.Thread(target=opencv_thread, daemon=True).start()
+    #start_unitree_receiver()
+    threading.Thread(target=start_unitree_receiver, daemon=True).start()
+    #threading.Thread(target=opencv_thread, daemon=True).start()
     web.run_app(app, port=8080)
