@@ -8,7 +8,7 @@ PREREQUISITES
 1. Node.js (v18 or higher) - For building the frontend.
 2. Python 3.x - For running the server script.
 
-QUICK START (DEVELOPMENT)
+QUICK START for Webpage (DEVELOPMENT)
 ------------------------------------------
 1. Open a terminal in this directory.
 2. Install dependencies:
@@ -39,7 +39,21 @@ PROJECT STRUCTURE
 PYTHON Environment
 ------------------------------------------
 PYTHON Environment has a few dependencies in order to run and communicate with the robotdog and test scripts.
-(TODO) -add dependies and documentation to create virtual environment
+These dependencies can be found in "requirements.txt"
+
+Start with creating a python virtual environment:
+```
+python -m venv venv
+```
+Then activate the virtual environment (you have to do this every time you open a new terminal):
+```
+source venv/bin/activate
+```
+Now you should install all the dependencies in the virtual environment:
+```
+pip install -r requirements.txt
+```
+And now you should be able to run the Python scripts aswell as the React webpage.
 
 NOTES
 ------------------------------------------
