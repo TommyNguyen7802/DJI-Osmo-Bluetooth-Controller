@@ -22,6 +22,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     if (key === "b") fetch("http://localhost:8010/camera/stop", { method: "POST" });
     if (key === "x") fetch("http://localhost:8010/camera/video", { method: "POST" });
     if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
+    if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
   };
 
   return (
@@ -65,6 +66,16 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onTouchStart={() => handlePress('a', true)}
             onTouchEnd={() => handlePress('a', false)}
         >A</button>
+      </div>
+      <div className="flex justify-start items-start">
+        <button 
+            className={btnClass('c', 'bg-purple-600 text-purple-100')}
+            onMouseDown={() => handlePress('c', true)}
+            onMouseUp={() => handlePress('c', false)}
+            onMouseLeave={() => handlePress('c', false)}
+            onTouchStart={() => handlePress('c', true)}
+            onTouchEnd={() => handlePress('c', false)}
+        >C</button>
       </div>
     </div>
   );

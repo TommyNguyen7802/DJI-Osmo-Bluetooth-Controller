@@ -51,6 +51,37 @@ async def api_photo():
     await switch_mode_photo(ble_global, device_id_global)
     return {"status": "photo_mode"}
 
+@app.post("/camera/transfer")
+async def api_transfer():
+    # Re-enable USB hubs
+    enable_hub(2)
+    enable_hub(4)
+
+    transfer_attempts = 4
+    transfer_delay_time = 6
+    transfer_buffer = 1
+
+    for i in range(transfer_attempts):
+        try:
+            print("\nAttempting file transfer...")
+            await asyncio.sleep(transfer_delay_time)
+            transfer_new_videos()
+            await asyncio.sleep(transfer_buffer)
+            break
+        except FileNotFoundError:
+            print(f"attempt {i+1} of {transfer_attempts}...")
+        except PermissionError:
+            print(f"attempt {i+1} of {transfer_attempts}...")
+        except Exception as e:
+            print(f"Error: {e}. attempt {i+1} of {transfer_attempts}...")
+
+    # Disable hubs again
+    disable_hub(2)
+    disable_hub(4)
+
+    return {"status": "transfer_complete"}
+
+
 
 # -------------------------
 # BLE + Camera Setup
