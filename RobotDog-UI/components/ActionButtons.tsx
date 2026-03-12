@@ -18,6 +18,10 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
 
   const handlePress = (key: string, active: boolean) => {
     onButtonPress(key, active);
+    if (key === "a") fetch("http://localhost:8010/camera/start", { method: "POST" });
+    if (key === "b") fetch("http://localhost:8010/camera/stop", { method: "POST" });
+    if (key === "x") fetch("http://localhost:8010/camera/video", { method: "POST" });
+    if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
   };
 
   return (

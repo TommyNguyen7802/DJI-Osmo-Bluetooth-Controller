@@ -1,21 +1,11 @@
 #!/usr/bin/env python3
 
-"""
-This entry point allows toggling between file transfer mode and record/capture mode.
-"""
-"""
-TODO:
-- [X] Testing w/ file transfer
-"""
-from sys import stdin
-import termios
-from tty import setraw
+import asyncio
 from time import sleep
 
 from uhubctl import disable_hub, enable_hub
 from transfer_video import transfer_new_videos
 
-import asyncio
 from dji_ble import DJIBLE
 from dji_commands import build_connection_request
 from dji_protocol import build_frame, next_seq
@@ -26,76 +16,69 @@ from dji_actions import (
     switch_mode_photo,
 )
 
+# -------------------------
+# FastAPI server
+# -------------------------
+from fastapi import FastAPI
+import uvicorn
 
-def get_key():
-    """Read a single keypress from stdin"""
-    fd = stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        setraw(fd)
-        charput = stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return charput
+app = FastAPI()
 
-
-async def remote_control_camera(ble, device_id):
-    """Performs camera actions and shows menu options"""
-    while True:
-        print(
-            "\nMake a selection:\n"
-            "c. start recording/capture\n"
-            "s. stop recording\n"
-            "1. switch to video mode\n"
-            "2. switch to camera/capture mode\n"
-            "3. Return"
-        )
-
-        key = get_key()
-        if key == "c":
-            print("start recording/capture")
-            await start_recording(ble, device_id)
-        elif key == "s":
-            print("stop recording")
-            await stop_recording(ble, device_id)
-        elif key == "1":
-            print("switch to video mode")
-            await switch_mode_video(ble, device_id)
-        elif key == "2":
-            print("switch to camera/capture mode")
-            await switch_mode_photo(ble, device_id)
-        elif key == "3" or key == "q":
-            await asyncio.sleep(0.5)
-            break
+ble_global = None
+device_id_global = None
 
 
-async def main():
+@app.post("/camera/start")
+async def api_start():
+    await start_recording(ble_global, device_id_global)
+    return {"status": "started"}
+
+
+@app.post("/camera/stop")
+async def api_stop():
+    await stop_recording(ble_global, device_id_global)
+    return {"status": "stopped"}
+
+
+@app.post("/camera/video")
+async def api_video():
+    await switch_mode_video(ble_global, device_id_global)
+    return {"status": "video_mode"}
+
+
+@app.post("/camera/photo")
+async def api_photo():
+    await switch_mode_photo(ble_global, device_id_global)
+    return {"status": "photo_mode"}
+
+
+# -------------------------
+# BLE + Camera Setup
+# -------------------------
+async def setup_ble():
     disable_hub(2)
     disable_hub(4)
 
     ble = DJIBLE()
     connect_attempts = 3
+
     for i in range(connect_attempts):
         try:
             await ble.connect()
             break
-        except TimeoutError as e:
-            print("A connection attempt was made, but timed out.")
-            await asyncio.sleep(0.5)
-            print(f"attempt {i+1} of {connect_attempts}...")
+        except TimeoutError:
+            print("Connection attempt timed out.")
             await asyncio.sleep(1)
-            if (i >= connect_attempts-1):
-                print("exiting...")
-                return 1
+            if i == connect_attempts - 1:
+                print("Exiting...")
+                return None
         except Exception as e:
             if str(e) == "Camera not found":
-                print("The camera was not found.")
-                await asyncio.sleep(0.5)
-                print(f"attempt {i+1} of {connect_attempts}...")
+                print("Camera not found, retrying...")
                 await asyncio.sleep(1)
-                if (i >= connect_attempts-1):
-                    print("exiting...")
-                    return 1
+                if i == connect_attempts - 1:
+                    print("Exiting...")
+                    return None
             else:
                 raise
 
@@ -113,70 +96,37 @@ async def main():
 
     await asyncio.sleep(0.5)
 
-    while True:
-        print(
-            "\nMake a selection:\n"
-            "1. Record/capture mode\n"
-            "2. File transfer mode\n"
-            "3. Disconnect"
-        )
+    return ble, device_id
 
-        key = get_key()
-        if key == "1":
-            await asyncio.sleep(0.5)
-            try:
-                await remote_control_camera(ble, device_id)
-            except Exception as e:
-                await asyncio.sleep(0.5)
-                print(f"Remote camera control failed: {e}")
-            await asyncio.sleep(0.5)
 
-        elif key == "2":
-            await asyncio.sleep(0.5)
-            enable_hub(2)
-            enable_hub(4)
+# -------------------------
+# Main entry point
+# -------------------------
+async def main():
+    global ble_global, device_id_global
 
-            transfer_attempts = 4
-            transfer_delay_time = 6
-            transfer_buffer = 1
-            for i in range(transfer_attempts):
-                try:
-                    print("\nAttempting file transfer...")
-                    await asyncio.sleep(transfer_delay_time)
-                    transfer_new_videos()
-                    await asyncio.sleep(transfer_buffer)
-                    break
-                except FileNotFoundError as e:
-                    if i == transfer_attempts:
-                        print("Path does not exist: {e}")
-                    print(f"attempt {i+1} of {transfer_attempts}...")
-                    pass
-                except PermissionError as e:
-                    if i == transfer_attempts:
-                        print(f"Permission error: {e}")
-                    print(f"attempt {i+1} of {transfer_attempts}...")
-                    pass
-                except Exception as e:
-                    print(f"Error: {e}.")
-                    print(f"attempt {i+1} of {transfer_attempts}...")
+    result = await setup_ble()
+    if result is None:
+        return
 
-            await asyncio.sleep(0.5)
-            disable_hub(2)
-            disable_hub(4)
-            await asyncio.sleep(2)
+    ble, device_id = result
+    ble_global = ble
+    device_id_global = device_id
 
-        elif key == "3" or key == "q":
-            print("disconnecting...")
-            await asyncio.sleep(0.25)
-            break
+    print("BLE camera connected. FastAPI server starting...")
 
-    await asyncio.sleep(1)
+    # Start FastAPI server (non-blocking)
+    config = uvicorn.Config(app, host="0.0.0.0", port=8010, log_level="info")
+    server = uvicorn.Server(config)
+
+    await server.serve()
+
+    # Cleanup on exit
     try:
         await ble.disconnect()
     except EOFError:
-        # already disconnected
         pass
-    await asyncio.sleep(1)
+
     enable_hub(2)
     enable_hub(4)
     sleep(1)
