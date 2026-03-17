@@ -92,9 +92,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
           onMouseLeave={() => handlePress('d', false)}
           onTouchStart={() => handlePress('d', true)}
           onTouchEnd={() => handlePress('d', false)}
-        >
-          D
-        </button>
+        >Connect Camera</button>
       </div>
     </div>
   );
