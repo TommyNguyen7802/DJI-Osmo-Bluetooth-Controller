@@ -26,8 +26,10 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
   };
 
   return (
+    // comment
     <div className="grid grid-cols-2 gap-4 sm:gap-6 p-6 rotate-12">
       <div className="flex justify-end items-end">
+      {/* Y - Photo Mode */}
         <button 
             className={btnClass('y', 'bg-yellow-600 text-yellow-100')}
             onMouseDown={() => handlePress('y', true)}
@@ -35,9 +37,10 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onMouseLeave={() => handlePress('y', false)}
             onTouchStart={() => handlePress('y', true)}
             onTouchEnd={() => handlePress('y', false)}
-        >Y</button>
+        >Photo Mode</button>
       </div>
       <div className="flex justify-start items-end">
+      {/* B - Stop Recording */}
         <button 
             className={btnClass('b', 'bg-red-600 text-red-100')}
             onMouseDown={() => handlePress('b', true)}
@@ -45,9 +48,10 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onMouseLeave={() => handlePress('b', false)}
             onTouchStart={() => handlePress('b', true)}
             onTouchEnd={() => handlePress('b', false)}
-        >B</button>
+        >Stop Recording</button>
       </div>
       <div className="flex justify-end items-start">
+      {/* X - Video Mode */}
         <button 
             className={btnClass('x', 'bg-blue-600 text-blue-100')}
             onMouseDown={() => handlePress('x', true)}
@@ -55,9 +59,10 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onMouseLeave={() => handlePress('x', false)}
             onTouchStart={() => handlePress('x', true)}
             onTouchEnd={() => handlePress('x', false)}
-        >X</button>
+        >Video Mode</button>
       </div>
       <div className="flex justify-start items-start">
+      {/* A - Capture Photo/Video */}
         <button 
             className={btnClass('a', 'bg-green-600 text-green-100')}
             onMouseDown={() => handlePress('a', true)}
@@ -65,9 +70,10 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onMouseLeave={() => handlePress('a', false)}
             onTouchStart={() => handlePress('a', true)}
             onTouchEnd={() => handlePress('a', false)}
-        >A</button>
+        >Capture</button>
       </div>
       <div className="flex justify-start items-start">
+      {/* C - File Upload */}
         <button 
             className={btnClass('c', 'bg-purple-600 text-purple-100')}
             onMouseDown={() => handlePress('c', true)}
@@ -75,7 +81,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onMouseLeave={() => handlePress('c', false)}
             onTouchStart={() => handlePress('c', true)}
             onTouchEnd={() => handlePress('c', false)}
-        >C</button>
+        >File Upload</button>
       </div>
     </div>
   );
