@@ -13,7 +13,11 @@ const App: React.FC = () => {
   
   const [activeDirection, setActiveDirection] = useState<Direction>(Direction.NONE);
   const [activeButtons, setActiveButtons] = useState({
-    a: false, b: false, x: false, y: false
+    a: false,
+    b: false,
+    x: false,
+    y: false,
+    d: false
   });
 
   const addLog = useCallback((message: string, type: 'info' | 'warning' | 'error' | 'success' = 'info') => {

@@ -23,6 +23,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     if (key === "x") fetch("http://localhost:8010/camera/video", { method: "POST" });
     if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
     if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
+    if (key === "d") fetch("http://localhost:8010/run-script", { method: "POST" });
   };
 
   return (
@@ -82,6 +83,18 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
             onTouchStart={() => handlePress('c', true)}
             onTouchEnd={() => handlePress('c', false)}
         >File Upload</button>
+      </div>
+      <div className="flex justify-start items-start">
+        <button 
+          className={btnClass('d', 'bg-pink-600 text-pink-100')}
+          onMouseDown={() => handlePress('d', true)}
+          onMouseUp={() => handlePress('d', false)}
+          onMouseLeave={() => handlePress('d', false)}
+          onTouchStart={() => handlePress('d', true)}
+          onTouchEnd={() => handlePress('d', false)}
+        >
+          D
+        </button>
       </div>
     </div>
   );
