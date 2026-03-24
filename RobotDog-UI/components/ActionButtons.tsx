@@ -23,7 +23,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     if (key === "x") fetch("http://localhost:8010/camera/video", { method: "POST" });
     if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
     if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
-    if (key === "d") fetch("http://localhost:8010/run-script", { method: "POST" });
+    if (key === "d") fetch("http://localhost:8010/camera/setup", { method: "POST" });
   };
 
   return (

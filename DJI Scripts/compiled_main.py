@@ -28,6 +28,12 @@ ble_global = None
 device_id_global = None
 
 
+@app.post("/camera/setup")
+async def api_setup():
+    await setup()
+    return {"status": "started"}
+
+
 @app.post("/camera/start")
 async def api_start():
     await start_recording(ble_global, device_id_global)
@@ -50,6 +56,7 @@ async def api_video():
 async def api_photo():
     await switch_mode_photo(ble_global, device_id_global)
     return {"status": "photo_mode"}
+
 
 @app.post("/camera/transfer")
 async def api_transfer():
@@ -80,7 +87,6 @@ async def api_transfer():
     disable_hub(4)
 
     return {"status": "transfer_complete"}
-
 
 
 # -------------------------
@@ -130,10 +136,7 @@ async def setup_ble():
     return ble, device_id
 
 
-# -------------------------
-# Main entry point
-# -------------------------
-async def main():
+async def setup():
     global ble_global, device_id_global
 
     result = await setup_ble()
@@ -144,7 +147,25 @@ async def main():
     ble_global = ble
     device_id_global = device_id
 
-    print("BLE camera connected. FastAPI server starting...")
+    print("BLE camera connected.")
+
+
+async def shutdown():
+    try:
+        await ble_global.disconnect()
+    except EOFError:
+        pass
+
+    enable_hub(2)
+    enable_hub(4)
+    sleep(1)
+
+
+# -------------------------
+# Main entry point
+# -------------------------
+async def main():
+    print("FastAPI server starting...")
 
     # Start FastAPI server (non-blocking)
     config = uvicorn.Config(app, host="0.0.0.0", port=8010, log_level="info")
@@ -153,14 +174,7 @@ async def main():
     await server.serve()
 
     # Cleanup on exit
-    try:
-        await ble.disconnect()
-    except EOFError:
-        pass
-
-    enable_hub(2)
-    enable_hub(4)
-    sleep(1)
+    await shutdown()
 
 
 if __name__ == "__main__":
