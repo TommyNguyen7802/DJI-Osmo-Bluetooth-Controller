@@ -30,30 +30,40 @@ device_id_global = None
 
 @app.post("/camera/setup")
 async def api_setup():
+    if ble_global != None:
+        return
     await setup()
     return {"status": "started"}
 
 
 @app.post("/camera/start")
 async def api_start():
+    if ble_global == None:
+        return
     await start_recording(ble_global, device_id_global)
     return {"status": "started"}
 
 
 @app.post("/camera/stop")
 async def api_stop():
+    if ble_global == None:
+        return
     await stop_recording(ble_global, device_id_global)
     return {"status": "stopped"}
 
 
 @app.post("/camera/video")
 async def api_video():
+    if ble_global == None:
+        return
     await switch_mode_video(ble_global, device_id_global)
     return {"status": "video_mode"}
 
 
 @app.post("/camera/photo")
 async def api_photo():
+    if ble_global == None:
+        return
     await switch_mode_photo(ble_global, device_id_global)
     return {"status": "photo_mode"}
 
@@ -153,8 +163,11 @@ async def setup():
 async def shutdown():
     try:
         await ble_global.disconnect()
-    except EOFError:
+    except (EOFError, AttributeError):
         pass
+
+    ble_global = None
+    device_id_global = None
 
     enable_hub(2)
     enable_hub(4)
