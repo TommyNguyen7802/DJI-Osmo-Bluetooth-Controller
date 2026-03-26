@@ -24,6 +24,8 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
     if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
     if (key === "d") fetch("http://localhost:8010/camera/setup", { method: "POST" });
+     // add disconnect
+    if (key === "e") fetch("http://localhost:8010/camera/setujdsaflkadalkdjflajdflkajp", { method: "POST" });
   };
 
   return (
@@ -85,14 +87,28 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
         >File Upload</button>
       </div>
       <div className="flex justify-start items-start">
+      {/* D - Connect Camera */}
         <button 
           className={btnClass('d', 'bg-pink-600 text-pink-100')}
-          onMouseDown={() => handlePress('d', true)}
-          onMouseUp={() => handlePress('d', false)}
-          onMouseLeave={() => handlePress('d', false)}
-          onTouchStart={() => handlePress('d', true)}
-          onTouchEnd={() => handlePress('d', false)}
+          // onMouseDown={() => handlePress('d', true)}
+          // onMouseUp={() => handlePress('d', false)}
+          // onMouseLeave={() => handlePress('d', false)}
+          // onTouchStart={() => handlePress('d', true)}
+          // onTouchEnd={() => handlePress('d', false)}
+          onClick={() => handlePress('d', true)}
         >Connect Camera</button>
+      </div>
+      <div className="flex justify-start items-start">
+      {/* E - Disconnect Camera */}
+        <button 
+          className={btnClass('e', 'bg-orange-600 text-orange-100')}
+          // onMouseDown={() => handlePress('d', true)}
+          // onMouseUp={() => handlePress('d', false)}
+          // onMouseLeave={() => handlePress('d', false)}
+          // onTouchStart={() => handlePress('d', true)}
+          // onTouchEnd={() => handlePress('d', false)}
+          onClick={() => handlePress('e', true)}
+        >Disconnect Camera</button>
       </div>
     </div>
   );

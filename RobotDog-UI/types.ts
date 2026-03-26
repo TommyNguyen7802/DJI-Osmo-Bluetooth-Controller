@@ -21,5 +21,6 @@ export interface ControlState {
     x: boolean;
     y: boolean;
     d: boolean;
+    e: boolean;
   };
 }

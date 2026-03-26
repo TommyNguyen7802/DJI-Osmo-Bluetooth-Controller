@@ -17,7 +17,8 @@ const App: React.FC = () => {
     b: false,
     x: false,
     y: false,
-    d: false
+    d: false,
+    e: false,
   });
 
   const addLog = useCallback((message: string, type: 'info' | 'warning' | 'error' | 'success' = 'info') => {
