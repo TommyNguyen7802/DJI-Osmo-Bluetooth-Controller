@@ -1,4 +1,4 @@
-RoboControl UI (WIP: Updated March 2, 2026)
+WRoboControl UI (WIP: Updated March 2, 2026)
 ==========================================
 
 A responsive, high-performance remote control interface featuring a dynamic grid layout, livestream video, and real-time telemetry.
@@ -12,10 +12,12 @@ QUICK START for Webpage (DEVELOPMENT)
 ------------------------------------------
 1. Open a terminal in this directory.
 2. Install dependencies:
-   npm install
+   
+   `npm install`
 
 3. Start the development server:
-   npm run dev
+   
+   `npm run dev`
 
    This will launch the UI in your default browser at http://localhost:3000.
    The UI automatically adjusts to the device's resolution.
