@@ -7,14 +7,13 @@
 - [X] Add Disconnect button
 - [ ] Move the python code so it all runs in a VENV (also check compatibility on Pi)
 - [ ] Clean documentation
-- [ ] Get script/server to show up in 'system logs'
+- [ ] print DJI/Camera Control Commands on terminal display
   - [ ] Switch to fetch instead of a get (can allow functions to be visible from terminal)
 - [ ] Fix bug where it shows buttons are pressed twice
 - [X] Fix bug where buttons activate on mouse rollover
 - [ ] rename/resize buttons to make them more appropriate
   - [X] rename buttons
 - [ ] Get rid of pretend decorations in the RobotDogUI
-- [ ] print DJI/Camera Control Commands on terminal display
 - [X] Raspberry Pi:
   - [X] Run web server on raspberry pi
   - [X] access web server on PC while running on raspberry pi
