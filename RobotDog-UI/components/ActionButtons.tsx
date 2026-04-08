@@ -26,8 +26,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
     if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
     if (key === "d") fetch("http://localhost:8010/camera/setup", { method: "POST" });
-    // add disconnect
-    if (key === "e") fetch("http://localhost:8010/camera/setujdsaflkadalkdjflajdflkajp", { method: "POST" });
+    if (key === "e") fetch("http://localhost:8010/camera/shutdown", { method: "POST" });
   };
 
   const handleClickButton = (key: string) => {

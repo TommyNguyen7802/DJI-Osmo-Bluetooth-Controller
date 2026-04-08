@@ -4,7 +4,7 @@
 - [X] Create another button to launch script that starts the initial server **connection**
   - [X] create button
   - [X] link the button to the camera setup functions
-- [ ] Add Disconnect button
+- [X] Add Disconnect button
 - [ ] Move the python code so it all runs in a VENV (also check compatibility on Pi)
 - [ ] Switch to fetch instead of a get (can allow functions to be visible from terminal)
 - [ ] Get script/server to show up in 'system logs'
