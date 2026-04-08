@@ -9,6 +9,7 @@ from transfer_video import transfer_new_videos
 from dji_ble import DJIBLE
 from dji_commands import build_connection_request
 from dji_protocol import build_frame, next_seq
+from dji_ble import DJIBLE
 from dji_actions import (
     start_recording,
     stop_recording,
@@ -34,6 +35,14 @@ async def api_setup():
         return
     await setup()
     return {"status": "started"}
+
+
+@app.post("/camera/shutdown")
+async def api_shutdown():
+    if ble_global == None:
+        return
+    await shutdown()
+    return {"status": "stopped"}
 
 
 @app.post("/camera/start")
@@ -161,6 +170,8 @@ async def setup():
 
 
 async def shutdown():
+    global ble_global, device_id_global
+
     try:
         await ble_global.disconnect()
     except (EOFError, AttributeError):
@@ -178,6 +189,7 @@ async def shutdown():
 # Main entry point
 # -------------------------
 async def main():
+    # global ble_global, device_id_global
     print("FastAPI server starting...")
 
     # Start FastAPI server (non-blocking)
@@ -186,6 +198,7 @@ async def main():
 
     await server.serve()
 
+    print("goodbye!")
     # Cleanup on exit
     await shutdown()
 
