@@ -6,8 +6,8 @@
   - [X] link the button to the camera setup functions
 - [X] Add Disconnect button
 - [ ] Move the python code so it all runs in a VENV (also check compatibility on Pi)
-- [ ] Switch to fetch instead of a get (can allow functions to be visible from terminal)
 - [ ] Get script/server to show up in 'system logs'
+  - [ ] Switch to fetc h instead of a get (can allow functions to be visible from terminal)
 - [ ] Fix bug where it shows buttons are pressed twice
 - [X] Fix bug where buttons activate on mouse rollover
 - [ ] rename/resize buttons to make them more appropriate
