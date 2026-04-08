@@ -189,7 +189,6 @@ async def shutdown():
 # Main entry point
 # -------------------------
 async def main():
-    # global ble_global, device_id_global
     print("FastAPI server starting...")
 
     # Start FastAPI server (non-blocking)
