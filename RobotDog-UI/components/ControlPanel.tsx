@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { DPad } from './DPad';
 import { ActionButtons } from './ActionButtons';
 import { Direction } from '../types';
-import { Gamepad2 } from 'lucide-react';
+import { BotIcon, Gamepad2 } from 'lucide-react';
 
 interface ControlPanelProps {
   onDirectionChange: (dir: Direction) => void;
@@ -103,8 +103,8 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         {/* Header Label */}
         <div className="absolute top-4 left-0 w-full text-center pointer-events-none">
             <div className="inline-flex items-center gap-2 bg-gray-900/80 px-4 py-1.5 rounded-full border border-gray-700 text-xs font-mono text-gray-400">
-                <Gamepad2 size={14} />
-                <span>MANUAL OVERRIDE ENABLED</span>
+                <BotIcon size={14} />
+                <span>Robot Dog Home Inspector</span>
             </div>
         </div>
 
@@ -113,7 +113,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             <div className="flex flex-col items-center gap-4">
                 <span className="text-xs font-bold text-gray-500 tracking-widest">DIRECTIONAL</span>
                 <DPad activeDirection={activeDirection} onDirectionChange={onDirectionChange} />
-                <div className="text-[10px] text-gray-600 font-mono">WASD / ARROW KEYS</div>
+                {/* <div className="text-[10px] text-gray-600 font-mono">WASD / ARROW KEYS</div> */}
             </div>
 
             {/* Divider (Desktop Only) */}
