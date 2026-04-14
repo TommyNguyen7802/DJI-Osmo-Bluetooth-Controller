@@ -31,12 +31,42 @@ const App: React.FC = () => {
     setLogs(prev => [...prev.slice(-49), newLog]); // Keep last 50 logs
   }, []);
 
+  const sendVelocity = async (vx: number, vy: number, yaw: number) => {
+    try {
+      await fetch("http://localhost:8010/dog/vel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ vx, vy, yaw })
+      });
+    } catch (err) {
+      addLog("Velocity command failed", "error");
+    }
+  };
+
   const handleDirectionChange = (dir: Direction) => {
     if (dir !== activeDirection) {
       setActiveDirection(dir);
       if (dir !== Direction.NONE) {
         addLog(`Input Direction: ${dir}`, 'info');
       }
+    }
+
+    switch (dir) {
+      case Direction.UP:
+        sendVelocity(0.3, 0, 0);   // forward
+        break;
+      case Direction.DOWN:
+        sendVelocity(-0.3, 0, 0);  // backward
+        break;
+      case Direction.LEFT:
+        sendVelocity(0, 0, 0.5);   // rotate left
+        break;
+      case Direction.RIGHT:
+        sendVelocity(0, 0, -0.5);  // rotate right
+        break;
+      case Direction.NONE:
+        sendVelocity(0, 0, 0);     // stop
+        break;
     }
   };
 

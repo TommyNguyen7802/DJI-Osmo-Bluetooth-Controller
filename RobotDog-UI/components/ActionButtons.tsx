@@ -27,6 +27,8 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
     if (key === "d") fetch("http://localhost:8010/camera/setup", { method: "POST" });
     if (key === "e") fetch("http://localhost:8010/camera/shutdown", { method: "POST" });
+    if (key === "stand") fetch("http://localhost:8010/dog/stand", { method: "POST" });
+    if (key === "damp") fetch("http://localhost:8010/dog/damp", { method: "POST" });
   };
 
   const handleClickButton = (key: string) => {
@@ -36,8 +38,22 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
 
   return (
     // comment
-    <div className="grid grid-cols-2 gap-4 sm:gap-6 p-6 rotate-12">
+    <div className="grid grid-cols-3 gap-4 sm:gap-6 p-6 rotate-12">
       <div className="flex justify-end items-end">
+        {/* Y - Photo Mode */}
+        <button
+          className={btnClass('damp', 'bg-yellow-600 text-yellow-100')}
+          onClick={() => handleClickButton('damp')}
+        >Damp Dog</button>
+      </div>
+      <div className="flex justify-start items-end">
+        {/* stand - arm dog */}
+        <button
+          className={btnClass('stand', 'bg-yellow-600 text-yellow-100')}
+          onClick={() => handleClickButton('stand')}
+        >Arm Dog</button>
+      </div>
+      <div className="flex justify-start items-end">
         {/* Y - Photo Mode */}
         <button
           className={btnClass('y', 'bg-yellow-600 text-yellow-100')}

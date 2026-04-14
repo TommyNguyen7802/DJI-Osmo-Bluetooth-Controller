@@ -16,6 +16,9 @@ from dji_actions import (
     switch_mode_video,
     switch_mode_photo,
 )
+from unitree_webrtc_connect.webrtc_driver import UnitreeWebRTCConnection, WebRTCConnectionMethod
+from pydantic import BaseModel
+
 
 # -------------------------
 # FastAPI server
@@ -27,6 +30,7 @@ app = FastAPI()
 
 ble_global = None
 device_id_global = None
+unitree_conn = None
 
 
 @app.post("/camera/setup")
@@ -184,6 +188,49 @@ async def shutdown():
     enable_hub(4)
     sleep(1)
 
+# -------------------------
+# Motion Control Setup
+# -------------------------
+async def setup_unitree():
+    global unitree_conn
+
+    unitree_conn = UnitreeWebRTCConnection(
+        WebRTCConnectionMethod.LocalSTA,
+        ip="192.168.123.161"
+    )
+
+    await unitree_conn.connect()
+    unitree_conn.motion.switchMotionChannel(True)
+
+    print("Unitree motion channel ready.")
+
+class VelCmd(BaseModel):
+    vx: float
+    vy: float
+    yaw: float
+
+@app.post("/dog/stand")
+async def dog_stand():
+    if unitree_conn is None:
+        return {"error": "Unitree not connected"}
+    unitree_conn.motion.stand()
+    return {"status": "standing"}
+
+@app.post("/dog/damp")
+async def dog_damp():
+    if unitree_conn is None:
+        return {"error": "Unitree not connected"}
+    unitree_conn.motion.damp()
+    return {"status": "damped"}
+
+@app.post("/dog/vel")
+async def dog_vel(cmd: VelCmd):
+    if unitree_conn is None:
+        return {"error": "Unitree not connected"}
+    unitree_conn.motion.velocity(cmd.vx, cmd.vy, cmd.yaw)
+    return {"status": "velocity_sent"}
+
+
 
 # -------------------------
 # Main entry point
@@ -191,15 +238,21 @@ async def shutdown():
 async def main():
     print("FastAPI server starting...")
 
-    # Start FastAPI server (non-blocking)
+    # Start BLE camera setup (non-blocking)
+    asyncio.create_task(setup())
+
+    # Start Unitree WebRTC setup (non-blocking)
+    asyncio.create_task(setup_unitree())
+
+    # Start FastAPI server
     config = uvicorn.Config(app, host="0.0.0.0", port=8010, log_level="info")
     server = uvicorn.Server(config)
-
     await server.serve()
 
     print("goodbye!")
     # Cleanup on exit
     await shutdown()
+
 
 
 if __name__ == "__main__":
