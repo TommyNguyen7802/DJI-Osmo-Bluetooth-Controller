@@ -5,7 +5,7 @@
   - [X] create button
   - [X] link the button to the camera setup functions
 - [X] Add Disconnect button
-- [ ] Move the python code so it all runs in a VENV (also check compatibility on Pi)
+- [ ] Move the python code so it all runs in a VENV (also check compatibility on Pi) [in-progress]
 - [ ] Clean documentation
 - [ ] print DJI/Camera Control Commands on terminal display
   - [ ] Switch to fetch instead of a get (can allow functions to be visible from terminal)
@@ -13,7 +13,7 @@
 - [X] Fix bug where buttons activate on mouse rollover
 - [ ] rename/resize buttons to make them more appropriate
   - [X] rename buttons
-- [ ] Get rid of pretend decorations in the RobotDogUI
+- [ ] Get rid of unnecessary decorations in the RobotDogUI
 - [X] Raspberry Pi:
   - [X] Run web server on raspberry pi
   - [X] access web server on PC while running on raspberry pi
