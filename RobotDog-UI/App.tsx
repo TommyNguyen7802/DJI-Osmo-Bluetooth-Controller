@@ -95,18 +95,6 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Middle Status Bar (Thin) */}
-      <div className="h-6 bg-blue-900/20 border-y border-blue-900/30 flex items-center justify-between px-4 text-[10px] sm:text-xs text-blue-200 font-mono tracking-wider">
-        <div className="flex gap-4">
-            <span className="flex items-center gap-1"><Signal size={12}/> RSSI: -42dBm</span>
-            <span className="flex items-center gap-1"><Battery size={12}/> BAT: 98%</span>
-        </div>
-        <div className="flex gap-4">
-            <span className="flex items-center gap-1"><Activity size={12}/> LATENCY: 24ms</span>
-            <span>MODE: REMOTE</span>
-        </div>
-      </div>
-
       {/* Bottom Half: Controls */}
       <div className="h-1/2 min-h-[300px] border-t border-gray-800">
         <ControlPanel 
