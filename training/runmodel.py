@@ -5,8 +5,8 @@ from ultralytics import YOLO
 def main():
     print("Starting YOLO webcam detection...")
 
-    # Load YOLO model
-    model = YOLO("yolo26n.pt")
+    # name of the model
+    model = YOLO("example.pt")
 
     cap = cv2.VideoCapture(0)
 
