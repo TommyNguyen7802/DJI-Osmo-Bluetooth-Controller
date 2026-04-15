@@ -1,3 +1,4 @@
+# Run model with imaga
 import cv2
 from ultralytics import YOLO
 
