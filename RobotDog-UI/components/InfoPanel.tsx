@@ -25,12 +25,8 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ logs }) => {
         </div>
         <div className="flex items-center gap-4 text-xs font-mono">
             <div className="flex items-center gap-1.5 text-green-500">
-                <Wifi size={14} />
-                <span>CONNECTED</span>
             </div>
             <div className="flex items-center gap-1.5 text-blue-400">
-                <Activity size={14} />
-                <span>ACTIVE</span>
             </div>
         </div>
       </div>
@@ -59,11 +55,8 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ logs }) => {
         <div ref={bottomRef} />
       </div>
 
-      {/* Status Footer */}
+      {/* Status Footer -- Currently Empty --- STATUS/CAMERA INFORMATION CAN GO HERE */}
       <div className="h-8 bg-gray-950 border-t border-gray-800 flex items-center px-4 text-xs text-gray-500 gap-4">
-        <span>CPU: 12%</span>
-        <span>MEM: 434MB</span>
-        <span className="ml-auto">v1.0.4-rc</span>
       </div>
     </div>
   );

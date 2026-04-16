@@ -40,18 +40,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         case 'arrowright':
           onDirectionChange(Direction.RIGHT);
           break;
-        case 'enter': // Button A
-          onButtonPress('a', true);
-          break;
-        case 'escape': // Button B
-          onButtonPress('b', true);
-          break;
-        case 'shift': // Button X
-          onButtonPress('x', true);
-          break;
-        case ' ': // Button Y
-          onButtonPress('y', true);
-          break;
       }
     };
 
@@ -123,7 +111,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             <div className="flex flex-col items-center gap-4">
                 <span className="text-xs font-bold text-gray-500 tracking-widest">MODULES</span>
                 <ActionButtons activeButtons={activeButtons} onButtonPress={onButtonPress} />
-                <div className="text-[10px] text-gray-600 font-mono">SPACE - SHIFT - ENT - ESC</div>
             </div>
         </div>
     </div>
