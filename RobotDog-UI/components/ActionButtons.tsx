@@ -40,17 +40,17 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
     // comment
     <div className="grid grid-cols-3 gap-4 sm:gap-6 p-6 rotate-12">
       <div className="flex justify-end items-end">
-        {/* Y - Photo Mode */}
+        {/* V - Damp Dog */}
         <button
-          className={btnClass('damp', 'bg-yellow-600 text-yellow-100')}
-          onClick={() => handleClickButton('damp')}
+          className={btnClass('v', 'bg-amber-800 text-amber-100')}
+          onClick={() => handleClickButton('v')}
         >Damp Dog</button>
       </div>
       <div className="flex justify-start items-end">
-        {/* stand - arm dog */}
+        {/* W - Arm Dog / Stand */}
         <button
-          className={btnClass('stand', 'bg-yellow-600 text-yellow-100')}
-          onClick={() => handleClickButton('stand')}
+          className={btnClass('w', 'bg-gray-400 text-gray-900')}
+          onClick={() => handleClickButton('w')}
         >Arm Dog</button>
       </div>
       <div className="flex justify-start items-end">
