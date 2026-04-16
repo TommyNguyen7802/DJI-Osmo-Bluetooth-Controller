@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import asyncio
+import logging
 from time import sleep
 
 from uhubctl import disable_hub, enable_hub
@@ -17,6 +18,7 @@ from dji_actions import (
     switch_mode_photo,
 )
 from unitree_webrtc_connect.webrtc_driver import UnitreeWebRTCConnection, WebRTCConnectionMethod
+from unitree_webrtc_connect.constants import RTC_TOPIC, SPORT_CMD
 from pydantic import BaseModel
 
 
@@ -200,7 +202,12 @@ async def setup_unitree():
     )
 
     await unitree_conn.connect()
-    unitree_conn.motion.switchMotionChannel(True)
+    await conn.datachannel.pub_sub.publish_request_new(
+            RTC_TOPIC["MOTION_SWITCHER"],
+            {"api_id": 1002, "parameter": {"name": "normal"}}
+        )
+
+    print("Motion mode enabled.")
 
     print("Unitree motion channel ready.")
 
@@ -211,24 +218,32 @@ class VelCmd(BaseModel):
 
 @app.post("/dog/stand")
 async def dog_stand():
-    if unitree_conn is None:
-        return {"error": "Unitree not connected"}
-    unitree_conn.motion.stand()
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+    RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["StandUp"]}
+)
     return {"status": "standing"}
 
 @app.post("/dog/damp")
 async def dog_damp():
-    if unitree_conn is None:
-        return {"error": "Unitree not connected"}
-    unitree_conn.motion.damp()
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+        RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["StandDown"]}
+    )
     return {"status": "damped"}
+
 
 @app.post("/dog/vel")
 async def dog_vel(cmd: VelCmd):
-    if unitree_conn is None:
-        return {"error": "Unitree not connected"}
-    unitree_conn.motion.velocity(cmd.vx, cmd.vy, cmd.yaw)
-    return {"status": "velocity_sent"}
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+        RTC_TOPIC["SPORT_MOD"],
+        {
+            "api_id": SPORT_CMD["Move"],
+            "parameter": {"x": cmd.vx, "y": cmd.vy, "z": cmd.yaw}
+        }
+    )
+    return {"status": "ok"}
+
 
 
 
