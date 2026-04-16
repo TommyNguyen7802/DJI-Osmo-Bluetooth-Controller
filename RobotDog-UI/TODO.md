@@ -13,7 +13,7 @@
 - [X] Fix bug where buttons activate on mouse rollover
 - [ ] rename/resize buttons to make them more appropriate
   - [X] rename buttons
-- [ ] Get rid of unnecessary decorations in the RobotDogUI
+- [X] Get rid of unnecessary decorations in the RobotDogUI
 - [X] Raspberry Pi:
   - [X] Run web server on raspberry pi
   - [X] access web server on PC while running on raspberry pi
