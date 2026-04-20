@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { VideoPanel } from './components/VideoPanel';
 import { InfoPanel } from './components/InfoPanel';
 import { ControlPanel } from './components/ControlPanel';
@@ -31,6 +31,10 @@ const App: React.FC = () => {
     setLogs(prev => [...prev.slice(-49), newLog]); // Keep last 50 logs
   }, []);
 
+  const [currentVel, setCurrentVel] = useState({ vx: 0, vy: 0, yaw: 0 });
+  const [isMoving, setIsMoving] = useState(false);
+
+
   const sendVelocity = async (vx: number, vy: number, yaw: number) => {
     try {
       await fetch("http://localhost:8010/dog/vel", {
@@ -44,31 +48,45 @@ const App: React.FC = () => {
   };
 
   const handleDirectionChange = (dir: Direction) => {
-    if (dir !== activeDirection) {
-      setActiveDirection(dir);
-      if (dir !== Direction.NONE) {
-        addLog(`Input Direction: ${dir}`, 'info');
-      }
-    }
+  setActiveDirection(dir);
 
-    switch (dir) {
-      case Direction.UP:
-        sendVelocity(0.3, 0, 0);   // forward
-        break;
-      case Direction.DOWN:
-        sendVelocity(-0.3, 0, 0);  // backward
-        break;
-      case Direction.LEFT:
-        sendVelocity(0, 0, 0.5);   // rotate left
-        break;
-      case Direction.RIGHT:
-        sendVelocity(0, 0, -0.5);  // rotate right
-        break;
-      case Direction.NONE:
-        sendVelocity(0, 0, 0);     // stop
-        break;
+  switch (dir) {
+    case Direction.UP:
+      setCurrentVel({ vx: 0.3, vy: 0, yaw: 0 });
+      setIsMoving(true);
+      break;
+    case Direction.DOWN:
+      setCurrentVel({ vx: -0.3, vy: 0, yaw: 0 });
+      setIsMoving(true);
+      break;
+    case Direction.LEFT:
+      setCurrentVel({ vx: 0, vy: 0, yaw: 0.5 });
+      setIsMoving(true);
+      break;
+    case Direction.RIGHT:
+      setCurrentVel({ vx: 0, vy: 0, yaw: -0.5 });
+      setIsMoving(true);
+      break;
+    case Direction.NONE:
+      setCurrentVel({ vx: 0, vy: 0, yaw: 0 });
+      setIsMoving(false);
+      break;
+  }
+};
+
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    if (isMoving) {
+      sendVelocity(currentVel.vx, currentVel.vy, currentVel.yaw);
     }
-  };
+  }, 50);
+
+  return () => clearInterval(interval);
+}, [isMoving, currentVel]);
+
+
+
 
   const handleButtonPress = (btn: string, active: boolean) => {
     setActiveButtons(prev => {
