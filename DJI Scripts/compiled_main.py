@@ -26,9 +26,18 @@ from pydantic import BaseModel
 # FastAPI server
 # -------------------------
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 ble_global = None
 device_id_global = None
@@ -202,7 +211,7 @@ async def setup_unitree():
     )
 
     await unitree_conn.connect()
-    await conn.datachannel.pub_sub.publish_request_new(
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
             RTC_TOPIC["MOTION_SWITCHER"],
             {"api_id": 1002, "parameter": {"name": "normal"}}
         )
@@ -222,14 +231,29 @@ async def dog_stand():
     RTC_TOPIC["SPORT_MOD"],
     {"api_id": SPORT_CMD["StandUp"]}
 )
+    await asyncio.sleep(5)
+
     return {"status": "standing"}
 
 @app.post("/dog/damp")
 async def dog_damp():
     await unitree_conn.datachannel.pub_sub.publish_request_new(
         RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["StopMove"]}
+    )
+
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+        RTC_TOPIC["SPORT_MOD"],
     {"api_id": SPORT_CMD["StandDown"]}
     )
+
+    await asyncio.sleep(5)
+
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+        RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["Damp"]}
+    )
+
     return {"status": "damped"}
 
 
@@ -241,7 +265,10 @@ async def dog_vel(cmd: VelCmd):
             "api_id": SPORT_CMD["Move"],
             "parameter": {"x": cmd.vx, "y": cmd.vy, "z": cmd.yaw}
         }
+        
     )
+    print("VEL:", cmd.vx, cmd.vy, cmd.yaw)
+
     return {"status": "ok"}
 
 
