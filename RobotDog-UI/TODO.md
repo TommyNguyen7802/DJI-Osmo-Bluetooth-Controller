@@ -13,7 +13,7 @@
 - [X] Fix bug where buttons activate on mouse rollover
 - [X] Reshape buttons to make them more appropriate
 - [ ] Sort buttons into categories
-- [ ] fix arrow key logic
+- [X] fix arrow key logic
 - [ ] rename buttons, as necessary
 - [X] Get rid of unnecessary decorations in the RobotDogUI
 - [X] Raspberry Pi:
