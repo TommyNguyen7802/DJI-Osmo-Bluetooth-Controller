@@ -11,9 +11,10 @@
   - [ ] Switch to fetch instead of a get (can allow functions to be visible from terminal)
 - [ ] Fix bug where it shows buttons are pressed twice
 - [X] Fix bug where buttons activate on mouse rollover
-- [ ] Reshape buttons to make them more appropriate
-  - [ ] rename buttons, as necessary
-  - [X] rename buttons
+- [X] Reshape buttons to make them more appropriate
+- [ ] Sort buttons into categories
+- [ ] fix arrow key logic
+- [ ] rename buttons, as necessary
 - [X] Get rid of unnecessary decorations in the RobotDogUI
 - [X] Raspberry Pi:
   - [X] Run web server on raspberry pi
