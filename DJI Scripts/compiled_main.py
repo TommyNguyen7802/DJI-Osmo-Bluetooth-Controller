@@ -233,6 +233,11 @@ async def dog_stand():
 )
     await asyncio.sleep(5)
 
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+    RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["BalanceStand"]}
+)
+    
     return {"status": "standing"}
 
 @app.post("/dog/damp")

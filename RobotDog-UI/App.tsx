@@ -60,11 +60,11 @@ const App: React.FC = () => {
       setIsMoving(true);
       break;
     case Direction.LEFT:
-      setCurrentVel({ vx: 0, vy: 0, yaw: 0.5 });
+      setCurrentVel({ vx: 0, vy: 0, yaw: 0.6 });
       setIsMoving(true);
       break;
     case Direction.RIGHT:
-      setCurrentVel({ vx: 0, vy: 0, yaw: -0.5 });
+      setCurrentVel({ vx: 0, vy: 0, yaw: -0.6 });
       setIsMoving(true);
       break;
     case Direction.NONE:
