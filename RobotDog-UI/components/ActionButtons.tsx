@@ -7,7 +7,7 @@ interface ActionButtonsProps {
 
 export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onButtonPress }) => {
   const btnClass = (key: string, color: string) => `
-    w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center 
+    w-36 h-14 sm:w-38 sm:h-16 rounded-full px-4 flex items-center justify-center 
     text-xl font-bold font-mono transition-all duration-100 
     shadow-[0_4px_0_0_rgba(0,0,0,0.3)] active:shadow-none active:translate-y-[4px]
     border-2 border-white/5
@@ -38,7 +38,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
 
   return (
     // comment
-    <div className="grid grid-cols-3 gap-4 sm:gap-6 p-6 rotate-12">
+    <div className="grid grid-cols-3 gap-4 sm:gap-6 p-6">
       <div className="flex justify-end items-end">
         {/* V - Damp Dog */}
         <button
