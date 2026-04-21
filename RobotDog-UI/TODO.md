@@ -10,6 +10,8 @@
 - [ ] print DJI/Camera Control Commands on terminal display
   - [ ] Switch to fetch instead of a get (can allow functions to be visible from terminal)
 - [ ] Fix bug where it shows buttons are pressed twice
+- [ ] Lidar
+- [ ] Add the hello command and other commands
 - [X] Fix bug where buttons activate on mouse rollover
 - [X] Reshape buttons to make them more appropriate
 - [ ] Sort buttons into categories
