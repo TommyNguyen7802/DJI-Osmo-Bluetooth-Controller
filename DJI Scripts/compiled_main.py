@@ -276,6 +276,27 @@ async def dog_vel(cmd: VelCmd):
 
     return {"status": "ok"}
 
+@app.post("/dog/sit")
+async def dog_sit():
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+        RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["Sit"]}
+    )
+
+    await asyncio.sleep(3)
+
+    return {"status": "sitting"}
+
+@app.post("/dog/wave")
+async def dog_wave():
+    await unitree_conn.datachannel.pub_sub.publish_request_new(
+        RTC_TOPIC["SPORT_MOD"],
+    {"api_id": SPORT_CMD["Hello"]}
+    )
+
+    await asyncio.sleep(1)
+
+    return {"status": "waving"}
 
 
 
