@@ -29,7 +29,7 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
     if (key === "e") fetch("http://localhost:8010/camera/shutdown", { method: "POST" });
     if (key === "w") fetch("http://localhost:8010/dog/stand", { method: "POST" });
     if (key === "v") fetch("http://localhost:8010/dog/damp", { method: "POST" });
-    if (key === "b") fetch("http://localhost:8010/dog/sit", { method: "POST" });
+    if (key === "m") fetch("http://localhost:8010/dog/sit", { method: "POST" });
     if (key === "n") fetch("http://localhost:8010/dog/wave", { method: "POST" });
   };
 
@@ -56,10 +56,10 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
         >Stand Up</button>
       </div>
       <div className="flex justify-end items-end">
-        {/* B - Sit Dog */}
+        {/* M - Sit Dog */}
         <button
-          className={btnClass('b', 'bg-yellow-400 text-yellow-100')}
-          onClick={() => handleClickButton('b')}
+          className={btnClass('m', 'bg-yellow-400 text-yellow-100')}
+          onClick={() => handleClickButton('m')}
         >Sit</button>
       </div>
       <div className="flex justify-end items-end">
