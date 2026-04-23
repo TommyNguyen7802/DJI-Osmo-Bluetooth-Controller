@@ -29,6 +29,8 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
     if (key === "e") fetch("http://localhost:8010/camera/shutdown", { method: "POST" });
     if (key === "w") fetch("http://localhost:8010/dog/stand", { method: "POST" });
     if (key === "v") fetch("http://localhost:8010/dog/damp", { method: "POST" });
+    if (key === "b") fetch("http://localhost:8010/dog/sit", { method: "POST" });
+    if (key === "n") fetch("http://localhost:8010/dog/wave", { method: "POST" });
   };
 
   const handleClickButton = (key: string) => {
@@ -38,20 +40,34 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
 
   return (
     // comment
-    <div className="grid grid-cols-1 gap-4 sm:gap-6 p-6">
+    <div className="grid grid-cols-2 gap-4 sm:gap-6 p-6">
       <div className="flex justify-end items-end">
         {/* V - Damp Dog */}
         <button
-          className={btnClass('v', 'bg-amber-800 text-amber-100')}
+          className={btnClass('v', 'bg-red-800 text-red-100')}
           onClick={() => handleClickButton('v')}
-        >Damp Dog</button>
+        >Damp</button>
       </div>
       <div className="flex justify-start items-end">
         {/* W - Arm Dog / Stand */}
         <button
-          className={btnClass('w', 'bg-gray-400 text-gray-900')}
+          className={btnClass('w', 'bg-green-400 text-green-900')}
           onClick={() => handleClickButton('w')}
-        >Arm Dog</button>
+        >Stand Up</button>
+      </div>
+      <div className="flex justify-end items-end">
+        {/* B - Sit Dog */}
+        <button
+          className={btnClass('b', 'bg-yellow-400 text-yellow-100')}
+          onClick={() => handleClickButton('b')}
+        >Sit</button>
+      </div>
+      <div className="flex justify-end items-end">
+        {/* N - Wave Dog */}
+        <button
+          className={btnClass('n', 'bg-blue-800 text-blue-100')}
+          onClick={() => handleClickButton('n')}
+        >Wave</button>
       </div>
     </div>
   );
