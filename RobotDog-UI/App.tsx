@@ -106,6 +106,8 @@ const App: React.FC = () => {
         <div className="w-full md:w-1/2 h-1/2 md:h-full">
             <VideoPanel onLog={addLog} />
         </div>
+
+        {/* TODO: Center - Add Lidar */}
         
         {/* Top Right: UI Text / Logs */}
         <div className="w-full md:w-1/2 h-1/2 md:h-full border-l border-gray-800">
