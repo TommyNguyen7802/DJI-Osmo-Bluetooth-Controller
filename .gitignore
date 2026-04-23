@@ -24,6 +24,7 @@ sample-yolo-scripts/yolo26m.pt
 sample-yolo-scripts/yolo26l.pt
 
 **/__pycache__/
+RobotDog-UI/unitree_webrtc_connect
 /DJI\ Scripts/__pycache__
 /DJI\ Scripts/config.json
 /DJI\ Scripts/transfer_log.txt
