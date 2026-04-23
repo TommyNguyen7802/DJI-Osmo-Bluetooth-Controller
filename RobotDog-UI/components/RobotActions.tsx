@@ -38,7 +38,7 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
 
   return (
     // comment
-    <div className="grid grid-cols-3 gap-4 sm:gap-6 p-6">
+    <div className="grid grid-cols-1 gap-4 sm:gap-6 p-6">
       <div className="flex justify-end items-end">
         {/* V - Damp Dog */}
         <button
