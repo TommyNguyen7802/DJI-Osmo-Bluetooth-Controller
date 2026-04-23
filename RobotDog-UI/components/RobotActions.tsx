@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface ActionButtonsProps {
+interface RobotActionsProps {
   activeButtons: { [key: string]: boolean };
   onButtonPress: (btn: string, active: boolean) => void;
 }
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onButtonPress }) => {
+export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onButtonPress }) => {
   const btnClass = (key: string, color: string) => `
     w-36 h-14 sm:w-38 sm:h-16 rounded-full px-4 flex items-center justify-center 
     text-xl font-bold font-mono transition-all duration-100 
@@ -52,60 +52,6 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ activeButtons, onB
           className={btnClass('w', 'bg-gray-400 text-gray-900')}
           onClick={() => handleClickButton('w')}
         >Arm Dog</button>
-      </div>
-      <div className="flex justify-start items-end">
-        {/* Y - Photo Mode */}
-        <button
-          className={btnClass('y', 'bg-yellow-600 text-yellow-100')}
-          onClick={() => handleClickButton('y')}
-        >Photo Mode</button>
-      </div>
-      <div className="flex justify-start items-end">
-        {/* B - Stop Recording */}
-        <button
-          className={btnClass('b', 'bg-red-600 text-red-100')}
-          onClick={() => handleClickButton('b')}
-        >Stop Recording</button>
-      </div>
-      <div className="flex justify-end items-start">
-        {/* X - Video Mode */}
-        <button
-          className={btnClass('x', 'bg-blue-600 text-blue-100')}
-          onClick={() => handleClickButton('x')}
-        >Video Mode</button>
-      </div>
-      <div className="flex justify-start items-start">
-        {/* A - Capture Photo/Video */}
-        <button
-          className={btnClass('a', 'bg-green-600 text-green-100')}
-          onClick={() => handleClickButton('a')}
-        >Capture</button>
-      </div>
-      <div className="flex justify-start items-start">
-        {/* C - File Upload */}
-        <button
-          className={btnClass('c', 'bg-purple-600 text-purple-100')}
-          onClick={() => handleClickButton('c')}
-        >File Upload</button>
-      </div>
-      <div className="flex justify-start items-start">
-        {/* D - Connect Camera */}
-        <button
-          className={btnClass('d', 'bg-pink-600 text-pink-100')}
-          onClick={() => handleClickButton('d')}
-        >Connect Camera</button>
-      </div>
-      <div className="flex justify-start items-start">
-        {/* E - Disconnect Camera */}
-        <button
-          className={btnClass('e', 'bg-orange-600 text-orange-100')}
-          // onMouseDown={() => handlePress('d', true)}
-          // onMouseUp={() => handlePress('d', false)}
-          // onMouseLeave={() => handlePress('d', false)}
-          // onTouchStart={() => handlePress('d', true)}
-          // onTouchEnd={() => handlePress('d', false)}
-          onClick={() => handleClickButton('e')}
-        >Disconnect Camera</button>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { DPad } from './DPad';
-import { ActionButtons } from './ActionButtons';
+import { RobotActions } from './RobotActions';
+import { CameraControl } from './CameraControl';
 import { Direction } from '../types';
 import { BotIcon, Gamepad2 } from 'lucide-react';
 
@@ -110,7 +111,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         {/* Center Zone: Robot Actions */}
         <div className="flex flex-col items-center gap-4">
           <span className="text-xs font-bold text-gray-500 tracking-widest">ROBOT ACTIONS</span>
-          <ActionButtons activeButtons={activeButtons} onButtonPress={onButtonPress} />
+          <RobotActions activeButtons={activeButtons} onButtonPress={onButtonPress} />
         </div>
 
         {/* Divider (Desktop Only) */}
@@ -119,7 +120,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         {/* Right Zone: Camera Control */}
         <div className="flex flex-col items-center gap-4">
           <span className="text-xs font-bold text-gray-500 tracking-widest">CAMERA CONTROL</span>
-          <ActionButtons activeButtons={activeButtons} onButtonPress={onButtonPress} />
+          <CameraControl activeButtons={activeButtons} onButtonPress={onButtonPress} />
         </div>
       </div>
     </div>
