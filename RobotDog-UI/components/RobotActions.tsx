@@ -20,13 +20,6 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
     onButtonPress(key, active);
     if (!active) return;
 
-    if (key === "a") fetch("http://localhost:8010/camera/start", { method: "POST" });
-    if (key === "b") fetch("http://localhost:8010/camera/stop", { method: "POST" });
-    if (key === "x") fetch("http://localhost:8010/camera/video", { method: "POST" });
-    if (key === "y") fetch("http://localhost:8010/camera/photo", { method: "POST" });
-    if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
-    if (key === "d") fetch("http://localhost:8010/camera/setup", { method: "POST" });
-    if (key === "e") fetch("http://localhost:8010/camera/shutdown", { method: "POST" });
     if (key === "w") fetch("http://localhost:8010/dog/stand", { method: "POST" });
     if (key === "v") fetch("http://localhost:8010/dog/damp", { method: "POST" });
     if (key === "m") fetch("http://localhost:8010/dog/sit", { method: "POST" });

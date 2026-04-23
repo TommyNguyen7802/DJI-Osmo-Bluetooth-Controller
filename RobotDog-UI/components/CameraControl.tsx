@@ -27,8 +27,6 @@ export const CameraControl: React.FC<CameraControlProps> = ({ activeButtons, onB
     if (key === "c") fetch("http://localhost:8010/camera/transfer", { method: "POST" });
     if (key === "d") fetch("http://localhost:8010/camera/setup", { method: "POST" });
     if (key === "e") fetch("http://localhost:8010/camera/shutdown", { method: "POST" });
-    if (key === "w") fetch("http://localhost:8010/dog/stand", { method: "POST" });
-    if (key === "v") fetch("http://localhost:8010/dog/damp", { method: "POST" });
   };
 
   const handleClickButton = (key: string) => {
