@@ -35,30 +35,30 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
     // comment
     <div className="grid grid-cols-2 gap-4 sm:gap-6 p-6">
       <div className="flex justify-end items-end">
-        {/* V - Damp Dog */}
+        {/* V - Damp Dog / Lay Down */}
         <button
-          className={btnClass('v', 'bg-red-800 text-red-100')}
+          className={btnClass('v', 'bg-red-600 text-red-100')}
           onClick={() => handleClickButton('v')}
-        >Damp</button>
+        >Lay Down</button>
       </div>
       <div className="flex justify-start items-end">
         {/* W - Arm Dog / Stand */}
         <button
-          className={btnClass('w', 'bg-green-400 text-green-900')}
+          className={btnClass('w', 'bg-green-600 text-green-100')}
           onClick={() => handleClickButton('w')}
         >Stand Up</button>
       </div>
       <div className="flex justify-end items-end">
         {/* M - Sit Dog */}
         <button
-          className={btnClass('m', 'bg-yellow-400 text-yellow-100')}
+          className={btnClass('m', 'bg-yellow-600 text-yellow-100')}
           onClick={() => handleClickButton('m')}
         >Sit</button>
       </div>
       <div className="flex justify-end items-end">
         {/* N - Wave Dog */}
         <button
-          className={btnClass('n', 'bg-blue-800 text-blue-100')}
+          className={btnClass('n', 'bg-blue-600 text-blue-100')}
           onClick={() => handleClickButton('n')}
         >Wave</button>
       </div>
