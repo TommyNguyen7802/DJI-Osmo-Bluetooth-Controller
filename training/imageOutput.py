@@ -6,10 +6,10 @@ def main():
     print("Running YOLO on image...")
 
     # Load model
-    model = YOLO("name of the model")
+    model = YOLO("best_model.pt")
 
     # Load image
-    image_path = "image"
+    image_path = "picture5.jpg"
     frame = cv2.imread(image_path)
 
     if frame is None:
@@ -67,7 +67,7 @@ def main():
     alpha = 0.6
     annotated_frame = cv2.addWeighted(overlay, alpha, annotated_frame, 1 - alpha, 0)
 
-    # Text settings
+    # Text overlay
     cv2.putText(annotated_frame, "CLEANLINESS REPORT", (50, 70),
                 cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2)
 
@@ -87,35 +87,14 @@ def main():
     print(f"Status           : {status}")
     print("==============================\n")
 
-    # # -------- USER MENU --------
-    # print("Choose an option:")
-    # print("1. Show Image")
-    # print("2. Save Image")
-    # print("3. Show & Save")
-    # print("4. Exit")
 
-    # choice = input("Enter choice: ")
 
-    # if choice == "1":
-    #     cv2.imshow("YOLO Image Detection", annotated_frame)
-    #     cv2.waitKey(0)
-    #     cv2.destroyAllWindows()
-
-    # elif choice == "2":
-    #     cv2.imwrite("output.jpg", annotated_frame)
-    #     print("Saved as output.jpg")
-
-    # elif choice == "3":
     cv2.imshow("YOLO Image Detection", annotated_frame)
     cv2.imwrite("output.jpg", annotated_frame)
     print("Saved as output.jpg")
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    # else:
-    #     print("Exiting...")
-
-    # print("Done.")
 
 
 if __name__ == "__main__":
