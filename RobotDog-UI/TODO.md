@@ -23,6 +23,7 @@
   - [X] Run web server on raspberry pi
   - [X] access web server on PC while running on raspberry pi
 - [ ] LiDar
+- [ ] fix DOWN arrow doesn't work on UI (activates right arrow key when clicking down)
 - [ ] Add a power button to 'power off' the entire interface
 
 ## Testing
