@@ -1,3 +1,7 @@
+""" 
+    This code allows you to get a recorded vedio and run trine models
+    with yolo and save the final vedio
+""" 
 import cv2
 from ultralytics import YOLO
 
@@ -95,16 +99,16 @@ def main():
 
         # Display text
         cv2.putText( annotated_frame, "CLEANLINESS REPORT", (40, 70),
-                cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 255), 3 )
+                cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 3 )
 
         cv2.putText( annotated_frame, f"Number of surfaces: {int(num_objects)}", (40, 140),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2 )
+                    cv2.FONT_HERSHEY_SIMPLEX, 2, color, 2 )
 
         cv2.putText( annotated_frame, f"Cleanliness: {cleanliness}", (40, 200),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2 )
+                cv2.FONT_HERSHEY_SIMPLEX, 2, color, 2 )
 
         cv2.putText( annotated_frame,f"Status: {status}",(40, 260),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+                    cv2.FONT_HERSHEY_SIMPLEX, 2, color, 2)
 
         # Console output
         print("\n===== CLEANLINESS REPORT =====")
