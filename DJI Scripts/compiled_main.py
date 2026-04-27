@@ -95,7 +95,6 @@ async def api_photo():
 @app.post("/camera/transfer")
 async def api_transfer():
     # Re-enable USB hubs
-    enable_hub(2)
     enable_hub(4)
 
     transfer_attempts = 4
@@ -117,7 +116,6 @@ async def api_transfer():
             print(f"Error: {e}. attempt {i+1} of {transfer_attempts}...")
 
     # Disable hubs again
-    disable_hub(2)
     disable_hub(4)
 
     return {"status": "transfer_complete"}
@@ -127,7 +125,6 @@ async def api_transfer():
 # BLE + Camera Setup
 # -------------------------
 async def setup_ble():
-    disable_hub(2)
     disable_hub(4)
 
     ble = DJIBLE()
@@ -195,7 +192,6 @@ async def shutdown():
     ble_global = None
     device_id_global = None
 
-    enable_hub(2)
     enable_hub(4)
     sleep(1)
 
