@@ -1,5 +1,5 @@
 """ 
-    This code allows you to get a recorded vedio and run trine models
+    This code allows you to get a recorded vedio and run trained models
     with yolo and save the final vedio
 """ 
 import cv2
