@@ -6,10 +6,10 @@ def main():
     print("Starting YOLO video detection...")
 
     # Load YOLO model
-    model = YOLO("best_model.pt")
+    model = YOLO("Model name")
 
     # Input video file
-    video = "IMG_2313.mov"
+    video = "path to vedio"
 
     # Open video
     cap = cv2.VideoCapture(video)
