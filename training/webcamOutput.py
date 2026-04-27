@@ -1,4 +1,8 @@
-#Eun yolo for vedio output
+""" 
+    This code allows you to use a webcam  and run trained models
+    with yolo 
+""" 
+
 import cv2
 from ultralytics import YOLO
 
