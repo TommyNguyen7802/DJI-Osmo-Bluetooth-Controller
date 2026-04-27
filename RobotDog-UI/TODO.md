@@ -25,6 +25,9 @@
 - [ ] LiDar
 - [ ] fix DOWN arrow doesn't work on UI (activates right arrow key when clicking down)
 - [ ] Add a power button to 'power off' the entire interface
+- [ ] fix actions and controls working on LOCALHOST only (not working over network)
+  - [ ] RobotActions
+  - [ ] CameraControl
 
 ## Testing
 
