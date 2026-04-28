@@ -38,12 +38,12 @@ export const CameraControl: React.FC<CameraControlProps> = ({ activeButtons, onB
 
   return (
     <div className="grid grid-cols-3 gap-4 sm:gap-6 p-6">
-      <div className="flex justify-start items-end">
-        {/* Y - Photo Mode */}
+      <div className="flex justify-start items-start">
+        {/* A - Capture Photo/Video */}
         <button
-          className={btnClass('y', 'bg-yellow-600 text-yellow-100')}
-          onClick={() => handleClickButton('y')}
-        >Photo Mode</button>
+          className={btnClass('a', 'bg-green-600 text-green-100')}
+          onClick={() => handleClickButton('a')}
+        >Capture</button>
       </div>
       <div className="flex justify-start items-end">
         {/* B - Stop Recording */}
@@ -52,26 +52,26 @@ export const CameraControl: React.FC<CameraControlProps> = ({ activeButtons, onB
           onClick={() => handleClickButton('b')}
         >Stop Recording</button>
       </div>
-      <div className="flex justify-end items-start">
-        {/* X - Video Mode */}
-        <button
-          className={btnClass('x', 'bg-blue-600 text-blue-100')}
-          onClick={() => handleClickButton('x')}
-        >Video Mode</button>
-      </div>
-      <div className="flex justify-start items-start">
-        {/* A - Capture Photo/Video */}
-        <button
-          className={btnClass('a', 'bg-green-600 text-green-100')}
-          onClick={() => handleClickButton('a')}
-        >Capture</button>
-      </div>
       <div className="flex justify-start items-start">
         {/* C - File Upload */}
         <button
           className={btnClass('c', 'bg-purple-600 text-purple-100')}
           onClick={() => handleClickButton('c')}
         >File Upload</button>
+      </div>
+      <div className="flex justify-start items-end">
+        {/* Y - Photo Mode */}
+        <button
+          className={btnClass('y', 'bg-yellow-600 text-yellow-100')}
+          onClick={() => handleClickButton('y')}
+        >Photo Mode</button>
+      </div>
+      <div className="flex justify-end items-start">
+        {/* X - Video Mode */}
+        <button
+          className={btnClass('x', 'bg-blue-600 text-blue-100')}
+          onClick={() => handleClickButton('x')}
+        >Video Mode</button>
       </div>
       <div className="flex justify-start items-start">
         {/* D - Connect Camera */}
@@ -84,11 +84,6 @@ export const CameraControl: React.FC<CameraControlProps> = ({ activeButtons, onB
         {/* E - Disconnect Camera */}
         <button
           className={btnClass('e', 'bg-orange-600 text-orange-100')}
-          // onMouseDown={() => handlePress('d', true)}
-          // onMouseUp={() => handlePress('d', false)}
-          // onMouseLeave={() => handlePress('d', false)}
-          // onTouchStart={() => handlePress('d', true)}
-          // onTouchEnd={() => handlePress('d', false)}
           onClick={() => handleClickButton('e')}
         >Disconnect Camera</button>
       </div>

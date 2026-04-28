@@ -34,19 +34,19 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
   return (
     // comment
     <div className="grid grid-cols-2 gap-4 sm:gap-6 p-6">
+      <div className="flex justify-start items-end">
+        {/* W - Arm Dog / Stand Up */}
+        <button
+          className={btnClass('w', 'bg-green-600 text-green-100')}
+          onClick={() => handleClickButton('w')}
+        >Stand Up</button>
+      </div>
       <div className="flex justify-end items-end">
         {/* V - Damp Dog / Lay Down */}
         <button
           className={btnClass('v', 'bg-red-600 text-red-100')}
           onClick={() => handleClickButton('v')}
         >Lay Down</button>
-      </div>
-      <div className="flex justify-start items-end">
-        {/* W - Arm Dog / Stand */}
-        <button
-          className={btnClass('w', 'bg-green-600 text-green-100')}
-          onClick={() => handleClickButton('w')}
-        >Stand Up</button>
       </div>
       <div className="flex justify-end items-end">
         {/* M - Sit Dog */}
