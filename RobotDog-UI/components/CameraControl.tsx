@@ -1,6 +1,6 @@
 import React from 'react';
 
-const API_BASE = "http://10.42.0.1:3000/"
+const API_BASE = "http://10.42.0.1:3000"
 
 interface CameraControlProps {
   activeButtons: { [key: string]: boolean };
