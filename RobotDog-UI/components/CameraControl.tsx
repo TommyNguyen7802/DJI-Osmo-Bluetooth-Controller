@@ -1,6 +1,6 @@
 import React from 'react';
 
-const API_BASE = "http://10.42.0.1:3000"
+const API_BASE = "http://10.42.0.1:8010"
 
 interface CameraControlProps {
   activeButtons: { [key: string]: boolean };
@@ -22,13 +22,13 @@ export const CameraControl: React.FC<CameraControlProps> = ({ activeButtons, onB
     onButtonPress(key, active);
     if (!active) return;
 
-    if (key === "a") fetch("http://10.42.0.1:3000/camera/start", { method: "POST" });
-    if (key === "b") fetch("http://10.42.0.1:3000/camera/stop", { method: "POST" });
-    if (key === "x") fetch("http://10.42.0.1:3000/camera/video", { method: "POST" });
-    if (key === "y") fetch("http://10.42.0.1:3000/camera/photo", { method: "POST" });
-    if (key === "c") fetch("http://10.42.0.1:3000/camera/transfer", { method: "POST" });
-    if (key === "d") fetch("http://10.42.0.1:3000/camera/setup", { method: "POST" });
-    if (key === "e") fetch("http://10.42.0.1:3000/camera/shutdown", { method: "POST" });
+    if (key === "a") fetch("http://10.42.0.1:8010/camera/start", { method: "POST" });
+    if (key === "b") fetch("http://10.42.0.1:8010/camera/stop", { method: "POST" });
+    if (key === "x") fetch("http://10.42.0.1:8010/camera/video", { method: "POST" });
+    if (key === "y") fetch("http://10.42.0.1:8010/camera/photo", { method: "POST" });
+    if (key === "c") fetch("http://10.42.0.1:8010/camera/transfer", { method: "POST" });
+    if (key === "d") fetch("http://10.42.0.1:8010/camera/setup", { method: "POST" });
+    if (key === "e") fetch("http://10.42.0.1:8010/camera/shutdown", { method: "POST" });
   };
 
   const handleClickButton = (key: string) => {
