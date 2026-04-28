@@ -1,6 +1,6 @@
 ### Introduction
 
-This Repo contains the Robotdog Project (As Featured at California State Universitiy Fullerton's 2026 ECS Innovations Expo) 
+# This Repo contains the Robotdog Project (As Featured at California State Universitiy Fullerton's 2026 ECS Innovations Expo) 
 
 ### Table of Contents
 
