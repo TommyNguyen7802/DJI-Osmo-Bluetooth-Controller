@@ -72,7 +72,7 @@ export const DPad: React.FC<DPadProps> = ({ activeDirection, onDirectionChange }
       <div />
       <button
         className={btnClass(activeDirection === Direction.DOWN)}
-        onClick={() => handleClickDirection(Direction.RIGHT)}
+        onClick={() => handleClickDirection(Direction.DOWN)}
       // onMouseDown={() => onDirectionChange(Direction.DOWN)}
       // onMouseUp={() => onDirectionChange(Direction.NONE)}
       // onMouseLeave={() => onDirectionChange(Direction.NONE)}
