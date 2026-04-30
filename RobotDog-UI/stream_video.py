@@ -14,8 +14,8 @@ from collections import deque
 
 context = zmq.Context()
 socket = context.socket(zmq.PULL)
-socket.connect("tcp://127.0.0.1:5555")
-print("ZMQ PULL connected to tcp://127.0.0.1:5555")
+socket.connect("tcp://192.168.0.2:5555")
+print("ZMQ PULL connected to tcp://192.168.0.2:5555")
 
 # simple frame buffer
 frame_buffer = deque(maxlen=1)

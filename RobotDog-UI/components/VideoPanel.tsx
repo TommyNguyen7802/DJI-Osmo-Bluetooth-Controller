@@ -28,7 +28,7 @@ export const VideoPanel = ({ onLog }) => {
         const offer = await pc.createOffer();
         await pc.setLocalDescription(offer);
 
-        const res = await fetch("http://localhost:8080/offer", {
+        const res = await fetch("http://192.168.0.2:8080/offer", {
           method: "POST",
           body: JSON.stringify(offer),
           headers: { "Content-Type": "application/json" },

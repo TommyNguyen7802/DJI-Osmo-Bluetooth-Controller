@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
   const sendVelocity = async (vx: number, vy: number, yaw: number) => {
     try {
-      await fetch("http://localhost:8010/dog/vel", {
+      await fetch("http://192.168.0.2:8010/dog/vel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ vx, vy, yaw })

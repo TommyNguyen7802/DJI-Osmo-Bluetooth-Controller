@@ -20,10 +20,10 @@ export const RobotActions: React.FC<RobotActionsProps> = ({ activeButtons, onBut
     onButtonPress(key, active);
     if (!active) return;
 
-    if (key === "w") fetch("http://localhost:8010/dog/stand", { method: "POST" });
-    if (key === "v") fetch("http://localhost:8010/dog/damp", { method: "POST" });
-    if (key === "m") fetch("http://localhost:8010/dog/sit", { method: "POST" });
-    if (key === "n") fetch("http://localhost:8010/dog/wave", { method: "POST" });
+    if (key === "w") fetch("http://192.168.0.2:8010/dog/stand", { method: "POST" });
+    if (key === "v") fetch("http://192.168.0.2:8010/dog/damp", { method: "POST" });
+    if (key === "m") fetch("http://192.168.0.2:8010/dog/sit", { method: "POST" });
+    if (key === "n") fetch("http://192.168.0.2:8010/dog/wave", { method: "POST" });
   };
 
   const handleClickButton = (key: string) => {

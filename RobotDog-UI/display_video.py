@@ -20,8 +20,8 @@ def main():
     socket = context.socket(zmq.PUSH)
     socket.setsockopt(zmq.SNDHWM, 1)
     socket.setsockopt(zmq.LINGER, 0)
-    socket.bind("tcp://127.0.0.1:5555")
-    print("ZMQ PUSH bound on tcp://127.0.0.1:5555")
+    socket.bind("tcp://192.168.0.2:5555")
+    print("ZMQ PUSH bound on tcp://192.168.0.2:5555")
 
     conn = UnitreeWebRTCConnection(WebRTCConnectionMethod.LocalSTA, ip="192.168.123.161")
 
@@ -56,19 +56,11 @@ def main():
     loop = asyncio.new_event_loop()
     threading.Thread(target=run_asyncio_loop, args=(loop,), daemon=True).start()
 
-    # OpenCV display
-    cv2.namedWindow("Video", cv2.WINDOW_NORMAL)
+    # OpenCV no-display
     try:
         while True:
-            if not frame_queue.empty():
-                img = frame_queue.get()
-                cv2.imshow("Video", img)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
-            else:
-                time.sleep(0.01)
+            time.sleep(1)
     finally:
-        cv2.destroyAllWindows()
         loop.call_soon_threadsafe(loop.stop)
 
 if __name__ == "__main__":
