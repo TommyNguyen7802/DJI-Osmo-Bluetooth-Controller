@@ -10,7 +10,7 @@ const App: React.FC = () => {
     { id: '1', timestamp: new Date().toLocaleTimeString(), message: 'System initialized', type: 'info' },
     { id: '2', timestamp: new Date().toLocaleTimeString(), message: 'Waiting for video stream...', type: 'warning' }
   ]);
-  
+
   const [activeDirection, setActiveDirection] = useState<Direction>(Direction.NONE);
   const [activeButtons, setActiveButtons] = useState({
     a: false,
@@ -48,54 +48,59 @@ const App: React.FC = () => {
   };
 
   const handleDirectionChange = (dir: Direction) => {
-  setActiveDirection(dir);
+    setActiveDirection(dir);
 
-  switch (dir) {
-    case Direction.UP:
-      setCurrentVel({ vx: 0.3, vy: 0, yaw: 0 });
-      setIsMoving(true);
-      break;
-    case Direction.DOWN:
-      setCurrentVel({ vx: -0.3, vy: 0, yaw: 0 });
-      setIsMoving(true);
-      break;
-    case Direction.LEFT:
-      setCurrentVel({ vx: 0, vy: 0, yaw: 0.6 });
-      setIsMoving(true);
-      break;
-    case Direction.RIGHT:
-      setCurrentVel({ vx: 0, vy: 0, yaw: -0.6 });
-      setIsMoving(true);
-      break;
-    case Direction.NONE:
-      setCurrentVel({ vx: 0, vy: 0, yaw: 0 });
-      setIsMoving(false);
-      break;
-  }
-};
+    switch (dir) {
+      case Direction.UP:
+        setCurrentVel({ vx: 0.3, vy: 0, yaw: 0 });
+        setIsMoving(true);
+        break;
+      case Direction.DOWN:
+        setCurrentVel({ vx: -0.3, vy: 0, yaw: 0 });
+        setIsMoving(true);
+        break;
+      case Direction.LEFT:
+        setCurrentVel({ vx: 0, vy: 0, yaw: 0.6 });
+        setIsMoving(true);
+        break;
+      case Direction.RIGHT:
+        setCurrentVel({ vx: 0, vy: 0, yaw: -0.6 });
+        setIsMoving(true);
+        break;
+      case Direction.NONE:
+        setCurrentVel({ vx: 0, vy: 0, yaw: 0 });
+        setIsMoving(false);
+        break;
+    }
+  };
 
 
   useEffect(() => {
-  const interval = setInterval(() => {
-    if (isMoving) {
-      sendVelocity(currentVel.vx, currentVel.vy, currentVel.yaw);
-    }
-  }, 50);
+    const interval = setInterval(() => {
+      if (isMoving) {
+        sendVelocity(currentVel.vx, currentVel.vy, currentVel.yaw);
+      }
+    }, 50);
 
-  return () => clearInterval(interval);
-}, [isMoving, currentVel]);
+    return () => clearInterval(interval);
+  }, [isMoving, currentVel]);
 
 
 
 
   const handleButtonPress = (btn: string, active: boolean) => {
-    setActiveButtons(prev => {
-        if (prev[btn as keyof typeof prev] !== active) {
-             if (active) addLog(`Button ${btn.toUpperCase()} Pressed`, 'success');
-             return { ...prev, [btn]: active };
-        }
-        return prev;
-    });
+    const isCurrentlyActive = activeButtons[btn as keyof typeof activeButtons];
+
+    if (isCurrentlyActive !== active) {
+      if (active) {
+        addLog(`Button ${btn.toUpperCase()} Pressed`, 'success');
+      }
+
+      setActiveButtons(prev => ({
+        ...prev,
+        [btn]: active,
+      }));
+    }
   };
 
   return (
@@ -104,24 +109,24 @@ const App: React.FC = () => {
       <div className="flex-1 flex flex-col md:flex-row min-h-0">
         {/* Top Left: Video */}
         <div className="w-full md:w-1/2 h-1/2 md:h-full">
-            <VideoPanel onLog={addLog} />
+          <VideoPanel onLog={addLog} />
         </div>
 
         {/* TODO: Center - Add Lidar */}
-        
+
         {/* Top Right: UI Text / Logs */}
         <div className="w-full md:w-1/2 h-1/2 md:h-full border-l border-gray-800">
-            <InfoPanel logs={logs} />
+          <InfoPanel logs={logs} />
         </div>
       </div>
 
       {/* Bottom Half: Controls */}
       <div className="h-1/2 min-h-[300px] border-t border-gray-800">
-        <ControlPanel 
-            activeDirection={activeDirection} 
-            onDirectionChange={handleDirectionChange}
-            activeButtons={activeButtons}
-            onButtonPress={handleButtonPress}
+        <ControlPanel
+          activeDirection={activeDirection}
+          onDirectionChange={handleDirectionChange}
+          activeButtons={activeButtons}
+          onButtonPress={handleButtonPress}
         />
       </div>
     </div>
